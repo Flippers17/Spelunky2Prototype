@@ -84,7 +84,15 @@ public class PlayerBehaviour : MonoBehaviour
         currentState.Enter();
         Debug.Log("Transitioned to " + currentState + " state");
     }
-    
+
+
+    public float GetGravity()
+    {
+        if (velocity.y > 2f && input.HoldingJump())
+            return gravity * .8f;
+
+        return gravity;
+    }
 
     public bool IsGrounded()
     {

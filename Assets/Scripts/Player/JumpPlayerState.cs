@@ -17,7 +17,6 @@ public class JumpPlayerState : PlayerState
     {
         _timeSinceJumped = 0;
         _player.velocity.y = Mathf.Sqrt(2f * jumpHeight * _player.gravity);
-        Debug.Log(_player.velocity.y);
     }
 
     public override void UpdateState()

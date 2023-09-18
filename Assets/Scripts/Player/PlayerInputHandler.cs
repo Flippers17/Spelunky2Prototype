@@ -29,5 +29,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         OnJump?.Invoke();
     }
+
+    public bool HoldingJump()
+    {
+        return jumpAction.inProgress;
+    }
     
 }

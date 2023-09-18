@@ -26,7 +26,7 @@ public class IdlePlayerState : PlayerState
     public override void FixedUpdateState()
     {
         if (!_player.IsGrounded())
-            _player.velocity.y -= _player.gravity * Time.fixedDeltaTime;
+            _player.velocity.y -= _player.GetGravity() * Time.fixedDeltaTime;
         else
             _player.velocity.y = -1;
     }
