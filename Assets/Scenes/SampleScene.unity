@@ -377,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 576031380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.502, z: 0}
-  m_LocalScale: {x: 1, y: 0.18359375, z: 1}
+  m_LocalScale: {x: 0.925, y: 0.18359375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 610709777}
@@ -466,14 +466,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walking:
     _speed: 4
+  jump:
+    jumpHeight: 1
+    acionDelay: 0.1
   _rb: {fileID: 610709774}
-  _gravity: 15
+  gravity: 40
   _groundCheck: {fileID: 576031381}
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
   input: {fileID: 610709778}
-  _velocity: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
 --- !u!212 &610709776
 SpriteRenderer:
   m_ObjectHideFlags: 0
