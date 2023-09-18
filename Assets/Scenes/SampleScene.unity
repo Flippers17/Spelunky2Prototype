@@ -466,11 +466,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walking:
     _speed: 4
+  running:
+    _speed: 8
+    _acceleration: 9
   jump:
     jumpHeight: 1
     acionDelay: 0.1
   _rb: {fileID: 610709774}
   gravity: 40
+  isGrounded: 1
+  _coyoteTime: 0.1
   _groundCheck: {fileID: 576031381}
   _groundMask:
     serializedVersion: 2
@@ -558,6 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 610709779}
+  _jumpPressRememberTime: 0.1
 --- !u!114 &610709779
 MonoBehaviour:
   m_ObjectHideFlags: 0

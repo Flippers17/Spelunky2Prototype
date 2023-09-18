@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField] public IdlePlayerState idle = new IdlePlayerState();
     [SerializeField] public WalkPlayerState walking = new WalkPlayerState();
+    [SerializeField] public RunningPlayerState running = new RunningPlayerState();
     [SerializeField] public JumpPlayerState jump = new JumpPlayerState();
     
     [SerializeField, Space(10)]
@@ -17,6 +18,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float gravity = 40f;
 
+    [HideInInspector]
+    public bool isGrounded = true;
+    private float _timeSinceGrounded = 0;
+    [SerializeField]
+    private float _coyoteTime = 0.1f;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundMask;
 
@@ -40,6 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         idle.OnValidate(this);
         walking.OnValidate(this);
+        running.OnValidate(this);
         jump.OnValidate(this);
     }
 
@@ -47,6 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         idle.Awake();
         walking.Awake();
+        running.Awake();
         jump.Awake();
     }
 
@@ -55,6 +63,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         idle.Start();
         walking.Start();
+        running.Start();
         jump.Start();
         
         currentState = idle;
@@ -70,6 +79,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        isGrounded = IsGrounded();
+
         if(currentState != null)
             currentState.FixedUpdateState();
         
@@ -88,15 +99,27 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float GetGravity()
     {
-        if (velocity.y > 2f && input.HoldingJump())
-            return gravity * .8f;
+        if (velocity.y > .4f && input.HoldingJump())
+            return gravity * .75f;
 
         return gravity;
     }
 
-    public bool IsGrounded()
+    private bool IsGrounded()
     {
-        return Physics2D.OverlapBox((Vector2)_groundCheck.position, (Vector2)_groundCheck.localScale, 0, _groundMask);
+        bool grounded = Physics2D.OverlapBox((Vector2)_groundCheck.position, (Vector2)_groundCheck.localScale, 0, _groundMask);
+
+        if (grounded)
+            _timeSinceGrounded = 0;
+        else
+            _timeSinceGrounded += Time.fixedDeltaTime;
+
+        return grounded;
+    }
+
+    public bool WithinCoyoteTime()
+    {
+        return _timeSinceGrounded < _coyoteTime;
     }
 
 

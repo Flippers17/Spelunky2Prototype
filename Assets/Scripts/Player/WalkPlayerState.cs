@@ -11,7 +11,10 @@ public class WalkPlayerState : PlayerState
     public override void Awake(){}
     public override void Start(){}
    
-    public override void Enter(){}
+    public override void Enter()
+    {
+       
+    }
 
     public override void UpdateState()
     {
@@ -20,17 +23,41 @@ public class WalkPlayerState : PlayerState
             _player.velocity.x = _speed * walkInput;
         else
             _player.TransitionToState(_player.idle);
+
+        CheckTransitions();
     }
+
+
+    private void CheckTransitions()
+    {
+        if (_input.RememberJumpInput())
+            TransitionToJump();
+        else if (_input.HoldingRun())
+            _player.TransitionToState(_player.running);
+    }
+
+
 
     public override void FixedUpdateState()
     {
-        if (!_player.IsGrounded())
+        if (!_player.isGrounded)
             _player.velocity.y -= _player.GetGravity() * Time.fixedDeltaTime;
         else
             _player.velocity.y = -1;
     }
 
-    public override void Exit(){}
+    public override void Exit()
+    {
+        
+    }
+
+    private void TransitionToJump()
+    {
+        if (!_player.WithinCoyoteTime())
+            return;
+
+        _player.TransitionToState(_player.jump);
+    }
 
     public override void OnValidate(PlayerBehaviour player)
     {

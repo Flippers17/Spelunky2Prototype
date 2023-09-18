@@ -21,10 +21,14 @@ public class JumpPlayerState : PlayerState
 
     public override void UpdateState()
     {
-        if(_timeSinceJumped < acionDelay)
+        if (_timeSinceJumped < acionDelay)
             _timeSinceJumped += Time.deltaTime;
-        else
+        else if (_input.GetHorizontalMoveInput() == 0)
             _player.TransitionToState(_player.idle);
+        else if (_input.HoldingRun())
+            _player.TransitionToState(_player.running);
+        else
+            _player.TransitionToState(_player.walking);
     }
 
     public override void FixedUpdateState()
