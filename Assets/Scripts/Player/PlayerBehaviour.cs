@@ -82,6 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
         currentState.Exit();
         currentState = targetState;
         currentState.Enter();
+        Debug.Log("Transitioned to " + currentState + " state");
     }
     
 

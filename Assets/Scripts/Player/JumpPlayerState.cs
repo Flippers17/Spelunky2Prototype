@@ -15,14 +15,16 @@ public class JumpPlayerState : PlayerState
 
     public override void Enter()
     {
-        _player.velocity.y = jumpHeight * _player.gravity * Time.fixedDeltaTime * Time.fixedDeltaTime;
-        
+        _timeSinceJumped = 0;
+        _player.velocity.y = Mathf.Sqrt(2f * jumpHeight * _player.gravity);
+        Debug.Log(_player.velocity.y);
     }
 
     public override void UpdateState()
     {
-        _timeSinceJumped += Time.deltaTime;
-        if(_timeSinceJumped >= acionDelay)
+        if(_timeSinceJumped < acionDelay)
+            _timeSinceJumped += Time.deltaTime;
+        else
             _player.TransitionToState(_player.idle);
     }
 
