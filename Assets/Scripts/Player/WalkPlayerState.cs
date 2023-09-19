@@ -7,6 +7,8 @@ public class WalkPlayerState : PlayerState
 {
     [SerializeField] private float _speed = 4f;
     private PlayerInputHandler _input;
+
+    private float _walkInput = 0;
     
     public override void Awake(){}
     public override void Start(){}
@@ -18,9 +20,12 @@ public class WalkPlayerState : PlayerState
 
     public override void UpdateState()
     {
-        float walkInput = _input.GetHorizontalMoveInput();
-        if (walkInput != 0)
-            _player.velocity.x = _speed * walkInput;
+        _walkInput = _input.GetHorizontalMoveInput();
+        if (_walkInput != 0)
+        {
+            _player.facingDirection = _walkInput > 0 ? 1 : -1;
+            _player.velocity.x = _speed * _walkInput;
+        }
         else
             _player.TransitionToState(_player.idle);
 
@@ -30,13 +35,27 @@ public class WalkPlayerState : PlayerState
 
     private void CheckTransitions()
     {
-        if (_input.RememberJumpInput())
+        if (LedgeGrabDetection())
+            _player.TransitionToState(_player.ledgeGrab);
+        else if (_input.RememberJumpInput())
             TransitionToJump();
         else if (_input.HoldingRun())
             _player.TransitionToState(_player.running);
     }
 
 
+    private bool LedgeGrabDetection()
+    {
+        if (_player.isGrounded || _player.velocity.y > 0.1f)
+            return false;
+        
+        Vector2 playerPos = _player.transform.position;
+        
+        return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f, 
+                   _player._groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player._groundMask) &&
+               !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player._groundMask);
+    }
+    
 
     public override void FixedUpdateState()
     {
@@ -64,4 +83,5 @@ public class WalkPlayerState : PlayerState
         base.OnValidate(player);
         _input = player.input;
     }
+    
 }

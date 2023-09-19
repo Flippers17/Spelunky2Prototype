@@ -4,14 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour
+public interface Damageable
+{
+    void TakeDamage(int damage);
+}
+
+
+public class PlayerBehaviour : MonoBehaviour , Damageable
 {
     private PlayerState currentState;
 
-    [SerializeField] public IdlePlayerState idle = new IdlePlayerState();
-    [SerializeField] public WalkPlayerState walking = new WalkPlayerState();
-    [SerializeField] public RunningPlayerState running = new RunningPlayerState();
-    [SerializeField] public JumpPlayerState jump = new JumpPlayerState();
+    public IdlePlayerState idle = new IdlePlayerState();
+    public WalkPlayerState walking = new WalkPlayerState();
+    public RunningPlayerState running = new RunningPlayerState();
+    public JumpPlayerState jump = new JumpPlayerState();
+    public LedgeGrabPlayerState ledgeGrab = new LedgeGrabPlayerState();
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -24,12 +31,13 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float _coyoteTime = 0.1f;
     [SerializeField] private Transform _groundCheck;
-    [SerializeField] private LayerMask _groundMask;
+    public LayerMask _groundMask;
 
     [SerializeField] public PlayerInputHandler input;
 
 
     public Vector2 velocity = Vector2.zero;
+    public int facingDirection = 1;
 
     private void OnValidate()
     {
@@ -48,6 +56,7 @@ public class PlayerBehaviour : MonoBehaviour
         walking.OnValidate(this);
         running.OnValidate(this);
         jump.OnValidate(this);
+        ledgeGrab.OnValidate(this);
     }
 
     private void Awake()
@@ -56,21 +65,21 @@ public class PlayerBehaviour : MonoBehaviour
         walking.Awake();
         running.Awake();
         jump.Awake();
+        ledgeGrab.Awake();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         idle.Start();
         walking.Start();
         running.Start();
         jump.Start();
+        ledgeGrab.Start();
         
         currentState = idle;
         currentState.Enter();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(currentState != null)
@@ -96,6 +105,10 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("Transitioned to " + currentState + " state");
     }
 
+    public void TakeDamage(int damage)
+    {
+        //Transition to Take damage state
+    }
 
     public float GetGravity()
     {
