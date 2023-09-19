@@ -7,7 +7,6 @@ public class RunningPlayerState : PlayerState
 {
     [SerializeField] private float _speed = 6f;
     [SerializeField] private float _acceleration = 3f;
-    private PlayerInputHandler _input;
 
     private float _walkInput = 0;
 
@@ -85,6 +84,5 @@ public class RunningPlayerState : PlayerState
     public override void OnValidate(PlayerBehaviour player)
     {
         base.OnValidate(player);
-        _input = player.input;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected PlayerBehaviour _player;
+    protected PlayerInputHandler _input;
     
     public virtual void Awake(){}
     public virtual void Start(){}
@@ -19,5 +20,6 @@ public abstract class PlayerState
     public virtual void OnValidate(PlayerBehaviour player)
     {
         _player = player;
+        _input = player.input;
     }
 }

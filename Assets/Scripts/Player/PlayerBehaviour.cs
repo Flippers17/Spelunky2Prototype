@@ -17,6 +17,7 @@ public class PlayerBehaviour : MonoBehaviour , Damageable
     public IdlePlayerState idle = new IdlePlayerState();
     public WalkPlayerState walking = new WalkPlayerState();
     public RunningPlayerState running = new RunningPlayerState();
+    public CrouchPlayerState crouching = new CrouchPlayerState();
     public JumpPlayerState jump = new JumpPlayerState();
     public LedgeGrabPlayerState ledgeGrab = new LedgeGrabPlayerState();
     
@@ -55,6 +56,7 @@ public class PlayerBehaviour : MonoBehaviour , Damageable
         idle.OnValidate(this);
         walking.OnValidate(this);
         running.OnValidate(this);
+        crouching.OnValidate(this);
         jump.OnValidate(this);
         ledgeGrab.OnValidate(this);
     }
@@ -64,6 +66,7 @@ public class PlayerBehaviour : MonoBehaviour , Damageable
         idle.Awake();
         walking.Awake();
         running.Awake();
+        crouching.Awake();
         jump.Awake();
         ledgeGrab.Awake();
     }
@@ -73,6 +76,7 @@ public class PlayerBehaviour : MonoBehaviour , Damageable
         idle.Start();
         walking.Start();
         running.Start();
+        crouching.Start();
         jump.Start();
         ledgeGrab.Start();
         

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class WalkPlayerState : PlayerState
+public class CrouchPlayerState : PlayerState
 {
-    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _speed = 2f;
+    [SerializeField] private Collider2D _defaultCollider;
+    [SerializeField] private Collider2D _crouchCollider;
 
     private float _walkInput = 0;
     
@@ -14,7 +16,8 @@ public class WalkPlayerState : PlayerState
    
     public override void Enter()
     {
-       
+        _defaultCollider.enabled = false;
+        _crouchCollider.enabled = true;
     }
 
     public override void UpdateState()
@@ -26,7 +29,9 @@ public class WalkPlayerState : PlayerState
             _player.velocity.x = _speed * _walkInput;
         }
         else
-            _player.TransitionToState(_player.idle);
+        {
+            _player.velocity.x = 0;
+        }
 
         CheckTransitions();
     }
@@ -34,27 +39,21 @@ public class WalkPlayerState : PlayerState
 
     private void CheckTransitions()
     {
-        if (LedgeGrabDetection())
-            _player.TransitionToState(_player.ledgeGrab);
+        if(CeilingDetection())
+            return;
+        Debug.Log("Here");
+        
+        if(!_input.HoldingCrouch() || !_player.isGrounded)
+            _player.TransitionToState(_player.idle);
         else if (_input.RememberJumpInput())
             TransitionToJump();
-        else if(_input.HoldingCrouch() && _player.isGrounded)
-            _player.TransitionToState(_player.crouching);
-        else if (_input.HoldingRun())
-            _player.TransitionToState(_player.running);
     }
 
 
-    private bool LedgeGrabDetection()
+    private bool CeilingDetection()
     {
-        if (_player.isGrounded || _player.velocity.y > 0.1f)
-            return false;
-        
-        Vector2 playerPos = _player.transform.position;
-        
-        return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f, 
-                   _player._groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player._groundMask) &&
-               !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player._groundMask);
+        return Physics2D.OverlapBox((Vector2)_player.transform.position + Vector2.up * 0.25f, new Vector2(1.05f, 0.6f), 0,
+            _player._groundMask);
     }
     
 
@@ -68,7 +67,8 @@ public class WalkPlayerState : PlayerState
 
     public override void Exit()
     {
-        
+        _defaultCollider.enabled = true;
+        _crouchCollider.enabled = false;
     }
 
     private void TransitionToJump()

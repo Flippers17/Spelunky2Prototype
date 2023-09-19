@@ -6,7 +6,6 @@ using UnityEngine;
 public class JumpPlayerState : PlayerState
 {
     [SerializeField] private float jumpHeight = 1f;
-    private PlayerInputHandler _input;
     [SerializeField] private float acionDelay = 0.1f;
     private float _timeSinceJumped = 0f;
     
@@ -41,6 +40,5 @@ public class JumpPlayerState : PlayerState
     public override void OnValidate(PlayerBehaviour player)
     {
         base.OnValidate(player);
-        _input = player.input;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class LedgeGrabPlayerState : PlayerState
 {
-    private PlayerInputHandler _input;
     
     public override void Awake(){}
     public override void Start(){}
@@ -33,10 +32,7 @@ public class LedgeGrabPlayerState : PlayerState
 
     public override void FixedUpdateState()
     {
-        //if (!_player.isGrounded)
-        //    _player.velocity.y -= _player.GetGravity() * Time.fixedDeltaTime;
-        //else
-        //    _player.velocity.y = -1;
+        
     }
 
     public override void Exit()
@@ -52,6 +48,5 @@ public class LedgeGrabPlayerState : PlayerState
     public override void OnValidate(PlayerBehaviour player)
     {
         base.OnValidate(player);
-        _input = player.input;
     }
 }

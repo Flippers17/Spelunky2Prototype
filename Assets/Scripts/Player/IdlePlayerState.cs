@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class IdlePlayerState : PlayerState
 {
-    private PlayerInputHandler _input;
     
     public override void Awake(){}
     public override void Start(){}
@@ -22,6 +21,8 @@ public class IdlePlayerState : PlayerState
 
         if (_input.RememberJumpInput())
             TransitionToJump();
+        else if(_input.HoldingCrouch() && _player.isGrounded)
+            _player.TransitionToState(_player.crouching);
     }
 
     public override void FixedUpdateState()
@@ -48,6 +49,5 @@ public class IdlePlayerState : PlayerState
     public override void OnValidate(PlayerBehaviour player)
     {
         base.OnValidate(player);
-        _input = player.input;
     }
 }
