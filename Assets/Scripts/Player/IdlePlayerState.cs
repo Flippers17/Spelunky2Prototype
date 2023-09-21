@@ -11,6 +11,7 @@ public class IdlePlayerState : PlayerState
 
     public override void Enter()
     {
+        _input.OnAttack += TransitionToAttack;
         _player.velocity.x = 0;
     }
 
@@ -38,7 +39,7 @@ public class IdlePlayerState : PlayerState
 
     public override void Exit()
     {
-
+        _input.OnAttack -= TransitionToAttack;
     }
 
     private void TransitionToJump()
@@ -49,6 +50,14 @@ public class IdlePlayerState : PlayerState
         _player.TransitionToState(_player.jump);
     }
 
+    private void TransitionToAttack()
+    {
+        if(!_player.isGrounded)
+            return;
+        
+        _player.TransitionToState(_player.attack);
+    }
+    
     public override void OnValidate(PlayerBehaviour player)
     {
         base.OnValidate(player);

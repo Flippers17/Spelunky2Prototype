@@ -10,6 +10,8 @@ public interface IDamageable
     void TakeDamage(int damage, Vector2 knockback);
 
     void Die();
+
+    bool CanBeHit();
 }
 
 
@@ -24,6 +26,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public JumpPlayerState jump = new JumpPlayerState();
     public LedgeGrabPlayerState ledgeGrab = new LedgeGrabPlayerState();
     public TakeDamagePlayerState takeDamage = new TakeDamagePlayerState();
+    public AttackPlayerState attack = new AttackPlayerState();
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -47,6 +50,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public LayerMask _groundMask;
 
     [SerializeField, Space(10)] public PlayerInputHandler input;
+    [SerializeField] private HurtBox _whipHurtBox;
 
     [HideInInspector]
     public Vector2 velocity = Vector2.zero;
@@ -83,6 +87,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         jump.OnValidate(this);
         ledgeGrab.OnValidate(this);
         takeDamage.OnValidate(this);
+        attack.OnValidate(this);
     }
 
     private void Awake()
@@ -94,6 +99,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         jump.Awake();
         ledgeGrab.Awake();
         takeDamage.Awake();
+        attack.Awake();
     }
 
     void Start()
@@ -105,6 +111,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         jump.Start();
         ledgeGrab.Start();
         takeDamage.Start();
+        attack.Start();
         
         currentState = idle;
         currentState.Enter();
@@ -123,9 +130,15 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     void Update()
     {
         if (facingDirection == -1)
+        {
             _sprite.flipX = true;
+            _whipHurtBox.transform.localPosition = new Vector3(-1, _whipHurtBox.transform.localPosition.y, 0);
+        }
         else
+        {
             _sprite.flipX = false;
+            _whipHurtBox.transform.localPosition = new Vector3(1, _whipHurtBox.transform.localPosition.y, 0);
+        }
         
         if(currentState != null)
             currentState.UpdateState();
@@ -176,6 +189,22 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     }
 
 
+    public void ActivateWhipHurtbox()
+    {
+        if(_whipHurtBox == null)
+            return;
+        
+        _whipHurtBox.enabled = true;
+    }
+    
+    public void DeactivateWhipHurtbox()
+    {
+        if(_whipHurtBox == null)
+            return;
+        
+        _whipHurtBox.enabled = false;
+    }
+    
     public float GetGravity()
     {
         if (velocity.y > .4f && input.HoldingJump())
@@ -201,7 +230,11 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         return _timeSinceGrounded < _coyoteTime;
     }
 
-
+    public bool CanBeHit()
+    {
+        return !(timeSinceDamaged < _invincibillityTime);
+    }
+        
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

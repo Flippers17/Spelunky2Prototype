@@ -34,8 +34,11 @@ public class HurtBox : MonoBehaviour
         {
             if(result[0].TryGetComponent(out IDamageable damageable))
             {
-                Vector2 dir = (Vector2)(result[0].transform.position - transform.position).normalized;
-                damageable.TakeDamage(damage, dir * knockbackVelocity);
+                if (damageable.CanBeHit())
+                {
+                    Vector2 dir = (Vector2)(result[0].transform.position - transform.position).normalized;
+                    damageable.TakeDamage(damage, dir * knockbackVelocity);
+                }
             }
         }
     }

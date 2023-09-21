@@ -16,6 +16,8 @@ public class WalkPlayerState : PlayerState
     {
         if(_player.isGrounded)
            _anim.SetBool("Walking", true);
+
+        _input.OnAttack += TransitionToAttack;
     }
 
     public override void UpdateState()
@@ -79,6 +81,7 @@ public class WalkPlayerState : PlayerState
     public override void Exit()
     {
         _anim.SetBool("Walking", false);
+        _input.OnAttack -= TransitionToAttack;
     }
 
     private void TransitionToJump()
@@ -87,6 +90,15 @@ public class WalkPlayerState : PlayerState
             return;
 
         _player.TransitionToState(_player.jump);
+    }
+
+
+    private void TransitionToAttack()
+    {
+        if(!_player.isGrounded)
+            return;
+        
+        _player.TransitionToState(_player.attack);
     }
 
     public override void OnValidate(PlayerBehaviour player)

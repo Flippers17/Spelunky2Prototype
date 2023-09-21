@@ -14,8 +14,10 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction jumpAction;
     private InputAction runAction;
     private InputAction crouchAction;
+    private InputAction attackAction;
 
     public UnityAction OnJump = () => { };
+    public UnityAction OnAttack = () => { };
 
     private float _timeSincePressedJump = 1f;
     
@@ -25,7 +27,9 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = _input.actions["Jump"];
         runAction = _input.actions["Run"];
         crouchAction = _input.actions["Crouch"];
+        attackAction = _input.actions["Attack"];
         jumpAction.started += OnPressJump;
+        attackAction.started += OnPressAttack;
     }
 
     private void Update()
@@ -43,6 +47,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _timeSincePressedJump = 0;
         OnJump?.Invoke();
+    }
+    
+    private void OnPressAttack(InputAction.CallbackContext _)
+    {
+        OnAttack?.Invoke();
     }
 
 
