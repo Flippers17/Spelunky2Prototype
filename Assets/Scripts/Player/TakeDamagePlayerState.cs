@@ -14,6 +14,8 @@ public class TakeDamagePlayerState : PlayerState
 
     public override void Enter()
     {
+        _anim.SetBool("Jumping", false);
+        _anim.SetBool("Taking Damage", true);
         timer = 0;
     }
 
@@ -36,6 +38,7 @@ public class TakeDamagePlayerState : PlayerState
 
     public override void Exit()
     {
+        _anim.SetBool("Taking Damage", false);
         _player.timeSinceDamaged = 0;
     }
 

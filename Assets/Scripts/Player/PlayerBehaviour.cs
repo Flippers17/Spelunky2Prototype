@@ -27,6 +27,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
+    public Animator anim;
+    private SpriteRenderer _sprite;
     [SerializeField, Space(10)]
     private Health _health;
     [SerializeField]
@@ -53,6 +55,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     private void OnValidate()
     {
+        _sprite = GetComponent<SpriteRenderer>();
+        
         if(_rb == null)
             if(!TryGetComponent(out _rb))
                 Debug.LogWarning("PlayerBehaviour is missing RigidBody2D reference", this);
@@ -67,6 +71,10 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         if(!_health)
             if(!TryGetComponent(out _health))
                 Debug.LogWarning("PlayerBehaviour is missing Health reference", this);
+        
+        if(!anim)
+            if(!TryGetComponent(out anim))
+                Debug.LogWarning("PlayerBehaviour is missing Animator reference", this);
         
         idle.OnValidate(this);
         walking.OnValidate(this);
@@ -114,11 +122,21 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     void Update()
     {
+        if (facingDirection == -1)
+            _sprite.flipX = true;
+        else
+            _sprite.flipX = false;
+        
         if(currentState != null)
             currentState.UpdateState();
 
         if (currentState != takeDamage && timeSinceDamaged < _invincibillityTime)
+        {
+            anim.SetBool("Flickering", true);
             timeSinceDamaged += Time.deltaTime;
+        }
+        else
+            anim.SetBool("Flickering", false);
     }
 
     private void FixedUpdate()

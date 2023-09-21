@@ -15,11 +15,15 @@ public class RunningPlayerState : PlayerState
 
     public override void Enter()
     {
-
+        if(_player.isGrounded)
+            _anim.SetBool("Running", true);
     }
 
     public override void UpdateState()
     {
+        if(_player.isGrounded)
+            _anim.SetBool("Jumping", false);
+        
         _walkInput = _input.GetHorizontalMoveInput();
         float targetVelocity = _speed * _walkInput;
         if (_walkInput != 0)
@@ -63,14 +67,20 @@ public class RunningPlayerState : PlayerState
     public override void FixedUpdateState()
     {
         if (!_player.isGrounded)
+        {
+            _anim.SetBool("Running", false);
             _player.velocity.y -= _player.GetGravity() * Time.fixedDeltaTime;
+        }
         else
+        {
+            _anim.SetBool("Running", true);
             _player.velocity.y = -1;
+        }
     }
 
     public override void Exit()
     {
-
+        _anim.SetBool("Running", false);
     }
 
     private void TransitionToJump()

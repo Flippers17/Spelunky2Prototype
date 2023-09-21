@@ -8,6 +8,7 @@ public abstract class PlayerState
 {
     protected PlayerBehaviour _player;
     protected PlayerInputHandler _input;
+    protected Animator _anim;
     
     public virtual void Awake(){}
     public virtual void Start(){}
@@ -21,5 +22,6 @@ public abstract class PlayerState
     {
         _player = player;
         _input = player.input;
+        _anim = player.anim;
     }
 }

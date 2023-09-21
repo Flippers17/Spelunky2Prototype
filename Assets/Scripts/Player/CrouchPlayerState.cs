@@ -16,6 +16,7 @@ public class CrouchPlayerState : PlayerState
    
     public override void Enter()
     {
+        _anim.SetBool("Crawling", true);
         _defaultCollider.enabled = false;
         _crouchCollider.enabled = true;
     }
@@ -27,10 +28,12 @@ public class CrouchPlayerState : PlayerState
         {
             _player.facingDirection = _walkInput > 0 ? 1 : -1;
             _player.velocity.x = _speed * _walkInput;
+            _anim.speed = 1;
         }
         else
         {
             _player.velocity.x = 0;
+            _anim.speed = 0;
         }
 
         CheckTransitions();
@@ -69,6 +72,8 @@ public class CrouchPlayerState : PlayerState
     {
         _defaultCollider.enabled = true;
         _crouchCollider.enabled = false;
+        _anim.SetBool("Crawling", false);
+        _anim.speed = 1;
     }
 
     private void TransitionToJump()

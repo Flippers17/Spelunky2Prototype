@@ -16,6 +16,7 @@ public class JumpPlayerState : PlayerState
     {
         _timeSinceJumped = 0;
         _player.velocity.y = Mathf.Sqrt(2f * jumpHeight * _player.gravity);
+        _anim.SetBool("Jumping", true);
     }
 
     public override void UpdateState()
@@ -35,7 +36,10 @@ public class JumpPlayerState : PlayerState
         
     }
 
-    public override void Exit(){}
+    public override void Exit()
+    {
+        
+    }
 
     public override void OnValidate(PlayerBehaviour player)
     {
