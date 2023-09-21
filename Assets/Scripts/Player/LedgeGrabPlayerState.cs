@@ -11,6 +11,8 @@ public class LedgeGrabPlayerState : PlayerState
    
     public override void Enter()
     {
+        _anim.SetBool("Jumping", false);
+        _anim.SetBool("Ledge Grabing", true);
         _player.velocity = new Vector2(1 * _player.facingDirection, 0);
     }
 
@@ -37,7 +39,7 @@ public class LedgeGrabPlayerState : PlayerState
 
     public override void Exit()
     {
-        
+        _anim.SetBool("Ledge Grabing", false);
     }
 
     private void TransitionToJump()
