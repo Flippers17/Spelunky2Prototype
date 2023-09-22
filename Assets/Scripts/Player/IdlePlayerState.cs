@@ -17,8 +17,7 @@ public class IdlePlayerState : PlayerState
 
     public override void UpdateState()
     {
-        if(_player.isGrounded)
-            _anim.SetBool("Jumping", false);
+        _anim.SetBool("Jumping", !_player.isGrounded);
         
         if(_input.GetHorizontalMoveInput() != 0)
             _player.TransitionToState(_player.walking);

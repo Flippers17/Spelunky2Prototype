@@ -22,8 +22,8 @@ public class WalkPlayerState : PlayerState
 
     public override void UpdateState()
     {
-        if(_player.isGrounded)
-            _anim.SetBool("Jumping", false);
+        
+        _anim.SetBool("Jumping", !_player.isGrounded);
         
         _walkInput = _input.GetHorizontalMoveInput();
         if (_walkInput != 0)

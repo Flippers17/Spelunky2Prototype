@@ -17,12 +17,13 @@ public class RunningPlayerState : PlayerState
     {
         if(_player.isGrounded)
             _anim.SetBool("Running", true);
+
+        _input.OnAttack += TransitionToAttack;
     }
 
     public override void UpdateState()
     {
-        if(_player.isGrounded)
-            _anim.SetBool("Jumping", false);
+        _anim.SetBool("Jumping", !_player.isGrounded);
         
         _walkInput = _input.GetHorizontalMoveInput();
         float targetVelocity = _speed * _walkInput;
@@ -81,6 +82,7 @@ public class RunningPlayerState : PlayerState
     public override void Exit()
     {
         _anim.SetBool("Running", false);
+        _input.OnAttack -= TransitionToAttack;
     }
 
     private void TransitionToJump()
@@ -89,6 +91,14 @@ public class RunningPlayerState : PlayerState
             return;
 
         _player.TransitionToState(_player.jump);
+    }
+
+    private void TransitionToAttack()
+    {
+        if (!_player.isGrounded)
+            return;
+
+        _player.TransitionToState(_player.attack);
     }
 
     public override void OnValidate(PlayerBehaviour player)

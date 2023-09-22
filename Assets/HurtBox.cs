@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public class HurtBox : MonoBehaviour
 {
@@ -9,15 +10,30 @@ public class HurtBox : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private float knockbackVelocity = 5;
     [SerializeField] private LayerMask _collisionMask;
+    [SerializeField] private bool _oneTimeHit = false;
 
     private Vector2 _pos;
 
     internal Vector2 _size;
 
+    private List<Collider2D> _targets;
+
     private void Start()
     {
         if (_point == null)
             _pos = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        if (_point != null)
+        {
+            _pos = _point.position;
+            _size = _point.localScale;
+        }
+
+        if ( _oneTimeHit)
+            _targets = Physics2D.OverlapBoxAll(_pos, _size, 0, _collisionMask).ToList();
     }
 
 
@@ -29,15 +45,36 @@ public class HurtBox : MonoBehaviour
             _size = _point.localScale;
         }
 
-        Collider2D[] result = Physics2D.OverlapBoxAll(_pos, _size, 0, _collisionMask);
-        if(result != null && result.Length > 0)
+
+        if (_oneTimeHit)
         {
-            if(result[0].TryGetComponent(out IDamageable damageable))
+
+            if (_targets != null && _targets.Count > 0)
             {
-                if (damageable.CanBeHit())
+                if (_targets[0].TryGetComponent(out IDamageable damageable))
                 {
-                    Vector2 dir = (Vector2)(result[0].transform.position - transform.position).normalized;
-                    damageable.TakeDamage(damage, dir * knockbackVelocity);
+                    if (damageable.CanBeHit())
+                    {
+                        Vector2 dir = (Vector2)(_targets[0].transform.position - transform.position).normalized;
+                        _targets.RemoveAt(0);
+                        damageable.TakeDamage(damage, dir * knockbackVelocity);
+                    }
+                }
+            }
+        }
+        else
+        {
+            Collider2D[] result = Physics2D.OverlapBoxAll(_pos, _size, 0, _collisionMask);
+        
+            if(result != null && result.Length > 0)
+            {
+                if(result[0].TryGetComponent(out IDamageable damageable))
+                {
+                    if (damageable.CanBeHit())
+                    {
+                        Vector2 dir = (Vector2)(result[0].transform.position - transform.position).normalized;
+                        damageable.TakeDamage(damage, dir * knockbackVelocity);
+                    }
                 }
             }
         }

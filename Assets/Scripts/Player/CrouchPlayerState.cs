@@ -42,12 +42,20 @@ public class CrouchPlayerState : PlayerState
 
     private void CheckTransitions()
     {
+        if (LedgeGrabDetection() && _input.HoldingCrouch() && _input.HoldingJump())
+        {
+            _player.TransitionToState(_player.climbDown);
+            return;
+        }
+
         if(CeilingDetection())
             return;
-        Debug.Log("Here");
         
         if(!_input.HoldingCrouch() || !_player.isGrounded)
+        {
             _player.TransitionToState(_player.idle);
+            return;
+        }
         else if (_input.RememberJumpInput())
             TransitionToJump();
     }
@@ -58,7 +66,17 @@ public class CrouchPlayerState : PlayerState
         return Physics2D.OverlapBox((Vector2)_player.transform.position + Vector2.up * 0.25f, new Vector2(1.05f, 0.6f), 0,
             _player._groundMask);
     }
-    
+
+    private bool LedgeGrabDetection()
+    {
+        if (!_player.isGrounded)
+            return false;
+
+        Vector2 playerPos = _player.transform.position;
+
+        return !Physics2D.Raycast(playerPos + Vector2.right * (.8f * _player.facingDirection), Vector2.down, 2f, _player._groundMask)
+                && _player.isGrounded;
+    }
 
     public override void FixedUpdateState()
     {

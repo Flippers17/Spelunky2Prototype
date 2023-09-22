@@ -15,6 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction runAction;
     private InputAction crouchAction;
     private InputAction attackAction;
+    private InputAction climbAction;
 
     public UnityAction OnJump = () => { };
     public UnityAction OnAttack = () => { };
@@ -28,6 +29,7 @@ public class PlayerInputHandler : MonoBehaviour
         runAction = _input.actions["Run"];
         crouchAction = _input.actions["Crouch"];
         attackAction = _input.actions["Attack"];
+        climbAction = _input.actions["Climb"];
         jumpAction.started += OnPressJump;
         attackAction.started += OnPressAttack;
     }
@@ -73,5 +75,10 @@ public class PlayerInputHandler : MonoBehaviour
     public bool HoldingCrouch()
     {
         return crouchAction.inProgress;
+    }
+    
+    public bool HoldingClimb()
+    {
+        return climbAction.inProgress;
     }
 }

@@ -25,6 +25,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public CrouchPlayerState crouching = new CrouchPlayerState();
     public JumpPlayerState jump = new JumpPlayerState();
     public LedgeGrabPlayerState ledgeGrab = new LedgeGrabPlayerState();
+    public ClimbDownLedgePlayerState climbDown = new ClimbDownLedgePlayerState();
+    public ClimbUpLedgePlayerState climbUp = new ClimbUpLedgePlayerState();
     public TakeDamagePlayerState takeDamage = new TakeDamagePlayerState();
     public AttackPlayerState attack = new AttackPlayerState();
     
@@ -86,6 +88,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         crouching.OnValidate(this);
         jump.OnValidate(this);
         ledgeGrab.OnValidate(this);
+        climbDown.OnValidate(this);
+        climbUp.OnValidate(this);
         takeDamage.OnValidate(this);
         attack.OnValidate(this);
     }
@@ -98,6 +102,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         crouching.Awake();
         jump.Awake();
         ledgeGrab.Awake();
+        climbDown.Awake();
+        climbUp.Awake();
         takeDamage.Awake();
         attack.Awake();
     }
@@ -110,6 +116,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         crouching.Start();
         jump.Start();
         ledgeGrab.Start();
+        climbDown.Start();
+        climbUp.Start();
         takeDamage.Start();
         attack.Start();
         
