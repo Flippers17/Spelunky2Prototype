@@ -53,6 +53,10 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     [SerializeField, Space(10)] public PlayerInputHandler input;
     [SerializeField] private HurtBox _whipHurtBox;
+    
+    public Transform _itemPickupPoint;
+    [HideInInspector]
+    public Item currentHeldItem = null;
 
     [HideInInspector]
     public Vector2 velocity = Vector2.zero;

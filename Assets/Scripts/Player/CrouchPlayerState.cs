@@ -19,6 +19,7 @@ public class CrouchPlayerState : PlayerState
         _anim.SetBool("Crawling", true);
         _defaultCollider.enabled = false;
         _crouchCollider.enabled = true;
+        _input.OnAttack += PickUpItem;
     }
 
     public override void UpdateState()
@@ -92,6 +93,7 @@ public class CrouchPlayerState : PlayerState
         _crouchCollider.enabled = false;
         _anim.SetBool("Crawling", false);
         _anim.speed = 1;
+        _input.OnAttack -= PickUpItem;
     }
 
     private void TransitionToJump()
@@ -100,6 +102,28 @@ public class CrouchPlayerState : PlayerState
             return;
 
         _player.TransitionToState(_player.jump);
+    }
+
+
+    private void PickUpItem()
+    {
+        if(_player.currentHeldItem != null)
+        {
+            _player.currentHeldItem.PlaceItemDown();
+            _player.currentHeldItem = null;
+            return;
+        }
+
+        Collider2D[] items = Physics2D.OverlapCircleAll(_player.transform.position + Vector3.right * _player.facingDirection, 0.5f, 1 << 10);
+
+        if (items == null)
+            return;
+
+        if (!items[0].TryGetComponent(out Item currentItem))
+            return;
+
+        currentItem.PickUp(_player._itemPickupPoint);
+        _player.currentHeldItem = currentItem;
     }
 
     public override void OnValidate(PlayerBehaviour player)
