@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using UnityEngine.Events;
 
 public class HurtBox : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class HurtBox : MonoBehaviour
     internal Vector2 _size;
 
     private List<Collider2D> _targets;
+
+    public UnityAction OnHit = delegate { };
 
     private void Start()
     {
@@ -51,6 +54,7 @@ public class HurtBox : MonoBehaviour
 
             if (_targets != null && _targets.Count > 0)
             {
+                OnHit?.Invoke();
                 if (_targets[0].TryGetComponent(out IDamageable damageable))
                 {
                     if (damageable.CanBeHit())
@@ -68,7 +72,8 @@ public class HurtBox : MonoBehaviour
         
             if(result != null && result.Length > 0)
             {
-                if(result[0].TryGetComponent(out IDamageable damageable))
+                OnHit?.Invoke();
+                if (result[0].TryGetComponent(out IDamageable damageable))
                 {
                     if (damageable.CanBeHit())
                     {

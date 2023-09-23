@@ -116,7 +116,7 @@ public class CrouchPlayerState : PlayerState
 
         Collider2D[] items = Physics2D.OverlapCircleAll(_player.transform.position + Vector3.right * _player.facingDirection, 0.5f, 1 << 10);
 
-        if (items == null)
+        if (items == null || items.Length == 0)
             return;
 
         if (!items[0].TryGetComponent(out Item currentItem))

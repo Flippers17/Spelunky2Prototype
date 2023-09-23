@@ -568,7 +568,7 @@ MonoBehaviour:
     stunnedTime: 0.3
   attack:
     acionDelay: 0.4
-    _throwingVelocity: {x: 6, y: 2}
+    _throwingVelocity: {x: 12, y: 2}
   _rb: {fileID: 610709774}
   anim: {fileID: 610709782}
   _health: {fileID: 610709781}
@@ -1091,6 +1091,7 @@ GameObject:
   - component: {fileID: 1383316472}
   - component: {fileID: 1383316471}
   - component: {fileID: 1383316475}
+  - component: {fileID: 1383316476}
   m_Layer: 10
   m_Name: Item
   m_TagString: Untagged
@@ -1132,8 +1133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hurtBox: {fileID: 2011976464}
+  _health: {fileID: 1383316476}
   _rb: {fileID: 1383316471}
-  _destroyOnHit: 1
+  hitDamageTaken: 1
   _hitMask:
     serializedVersion: 2
     m_Bits: 640
@@ -1231,6 +1233,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1383316476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383316470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74070451aa9b00d46826f218aa8d5d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 1
 --- !u!1 &1553000248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,8 +1643,8 @@ MonoBehaviour:
   knockbackVelocity: 0
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 512
-  _oneTimeHit: 1
+    m_Bits: 640
+  _oneTimeHit: 0
 --- !u!4 &2011976465
 Transform:
   m_ObjectHideFlags: 0

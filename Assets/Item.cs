@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IDamageable
 {
     [SerializeField]
     private HurtBox _hurtBox;
+    [SerializeField]
+    private Health _health;
 
     private Transform pickupTarget;
     [SerializeField]
     private Rigidbody2D _rb;
     [SerializeField]
-    private bool _destroyOnHit = true;
+    private int hitDamageTaken = 1;
 
     [SerializeField]
     private LayerMask _hitMask;
@@ -23,6 +25,22 @@ public class Item : MonoBehaviour
         if (!_rb)
             if (!TryGetComponent(out _rb))
                 Debug.LogWarning("Item is missing Rigidbody2D reference", this);
+        
+        if (!_health)
+            if (!TryGetComponent(out _health))
+                Debug.LogWarning("Item is missing Health reference", this);
+    }
+
+    private void OnEnable()
+    {
+        _hurtBox.OnHit += OnHit;
+        _health.OnDie += Die;
+    }
+
+    private void OnDisable()
+    {
+        _hurtBox.OnHit -= OnHit;
+        _health.OnDie -= Die;
     }
 
     public void PickUp(Transform target)
@@ -43,6 +61,7 @@ public class Item : MonoBehaviour
     {
         pickupTarget = null;
         _rb.isKinematic = false;
+        _hurtBox.enabled = true;
         isThrown = true;
         _rb.velocity = velocity;
     }
@@ -51,29 +70,30 @@ public class Item : MonoBehaviour
     {
         pickupTarget = null;
         _rb.isKinematic = false;
+        _hurtBox.enabled = false;
         isThrown = false;
         _rb.velocity = new Vector2(0, -3);
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage(int dmg, Vector2 knockback)
     {
-        if(!isThrown)
-        {
-            return;
-        }
-
-        if((1 << collision.gameObject.layer & _hitMask) != 0)
-        {
-            OnHit();
-        }   
+        _health.TakeDamage(dmg);
     }
 
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    public bool CanBeHit()
+    {
+        return true;
+    }
+
+   
     protected virtual void OnHit()
     {
-        if(_hurtBox)
-            _hurtBox.enabled = true;
-        if(_destroyOnHit)
-            Destroy(gameObject);
+        TakeDamage(hitDamageTaken, Vector2.zero);
     }
 }
