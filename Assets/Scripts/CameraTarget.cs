@@ -67,6 +67,6 @@ public class CameraTarget : MonoBehaviour
             _offset.y = 0;
         }
 
-        _target.position = _offset;
+        _target.localPosition = _offset;
     }
 }
