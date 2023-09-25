@@ -14,6 +14,7 @@ public class ClimbDownLedgePlayerState : PlayerState
     public override void Enter()
     {
         _player.facingDirection *= -1;
+        _anim.SetBool("Climbing Down", true);
     }
 
     public override void UpdateState()
@@ -50,7 +51,7 @@ public class ClimbDownLedgePlayerState : PlayerState
 
     public override void Exit()
     {
-
+        _anim.SetBool("Climbing Down", false);
     }
 
 }

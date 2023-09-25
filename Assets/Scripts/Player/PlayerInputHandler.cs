@@ -34,6 +34,26 @@ public class PlayerInputHandler : MonoBehaviour
         attackAction.started += OnPressAttack;
     }
 
+    private void OnEnable()
+    {
+        horizontalMoveAction.Enable();
+        jumpAction.Enable();
+        runAction.Enable();
+        crouchAction.Enable();
+        attackAction.Enable();
+        climbAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        horizontalMoveAction.Disable();
+        jumpAction.Disable();
+        runAction.Disable();
+        crouchAction.Disable();
+        attackAction.Disable();
+        climbAction.Disable();
+    }
+
     private void Update()
     {
         if (_timeSincePressedJump < _jumpPressRememberTime)
