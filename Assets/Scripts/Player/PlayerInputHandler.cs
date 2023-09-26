@@ -36,6 +36,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        if (horizontalMoveAction == null)
+            return;
+
         horizontalMoveAction.Enable();
         jumpAction.Enable();
         runAction.Enable();

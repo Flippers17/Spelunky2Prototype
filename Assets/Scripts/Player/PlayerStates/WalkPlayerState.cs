@@ -59,8 +59,8 @@ public class WalkPlayerState : PlayerState
         Vector2 playerPos = _player.transform.position;
         
         return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f, 
-                   _player._groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player._groundMask) &&
-               !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player._groundMask);
+                   _player.groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player.groundMask) &&
+               !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player.groundMask);
     }
     
 

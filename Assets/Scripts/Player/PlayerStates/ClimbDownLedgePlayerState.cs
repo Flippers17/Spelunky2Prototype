@@ -35,7 +35,7 @@ public class ClimbDownLedgePlayerState : PlayerState
         Vector2 playerPos = _player.transform.position;
 
         return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _player.facingDirection, .7f,
-                   _player._groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _player.facingDirection, 0.7f, _player._groundMask);
+                   _player.groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _player.facingDirection, 0.7f, _player.groundMask);
     }
 
 

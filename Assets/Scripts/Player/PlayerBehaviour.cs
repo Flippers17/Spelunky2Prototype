@@ -48,8 +48,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     private float _timeSinceGrounded = 0;
     [SerializeField, Space(10)]
     private float _coyoteTime = 0.1f;
-    [SerializeField] private Transform _groundCheck;
-    public LayerMask _groundMask;
+    public Transform groundCheck;
+    public LayerMask groundMask;
 
     [SerializeField, Space(10)] public PlayerInputHandler input;
     [SerializeField] private HurtBox _whipHurtBox;
@@ -71,7 +71,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
             if(!TryGetComponent(out _rb))
                 Debug.LogWarning("PlayerBehaviour is missing RigidBody2D reference", this);
         
-        if(!_groundCheck)
+        if(!groundCheck)
             Debug.LogWarning("No GroundCheck Transform has been assigned!", this);
         
         if(!input)
@@ -227,7 +227,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     private bool IsGrounded()
     {
-        bool grounded = Physics2D.OverlapBox((Vector2)_groundCheck.position, (Vector2)_groundCheck.localScale, 0, _groundMask);
+        bool grounded = Physics2D.OverlapBox((Vector2)groundCheck.position, (Vector2)groundCheck.localScale, 0, groundMask);
 
         if (grounded)
             _timeSinceGrounded = 0;
@@ -250,6 +250,6 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(_groundCheck.position, _groundCheck.localScale);
+        Gizmos.DrawWireCube(groundCheck.position, groundCheck.localScale);
     }
 }

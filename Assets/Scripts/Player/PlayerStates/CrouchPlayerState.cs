@@ -65,7 +65,7 @@ public class CrouchPlayerState : PlayerState
     private bool CeilingDetection()
     {
         return Physics2D.OverlapBox((Vector2)_player.transform.position + Vector2.up * 0.25f, new Vector2(1.05f, 0.6f), 0,
-            _player._groundMask);
+            _player.groundMask);
     }
 
     private bool LedgeGrabDetection()
@@ -75,7 +75,7 @@ public class CrouchPlayerState : PlayerState
 
         Vector2 playerPos = _player.transform.position;
 
-        return !Physics2D.Raycast(playerPos + Vector2.right * (.8f * _player.facingDirection), Vector2.down, 2f, _player._groundMask)
+        return !Physics2D.Raycast(playerPos + Vector2.right * (.8f * _player.facingDirection), Vector2.down, 2f, _player.groundMask)
                 && _player.isGrounded;
     }
 
