@@ -19,6 +19,6 @@ public abstract class EnemyState
     public virtual void OnValidate(EnemyBehaviour enemy)
     {
         _enemy = enemy;
-        //_anim = enemy.anim;
+        _anim = enemy.anim;
     }
 }
