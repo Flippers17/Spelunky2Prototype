@@ -29,6 +29,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public ClimbUpLedgePlayerState climbUp = new ClimbUpLedgePlayerState();
     public TakeDamagePlayerState takeDamage = new TakeDamagePlayerState();
     public AttackPlayerState attack = new AttackPlayerState();
+    public EnterDoorPlayerState enterDoor = new EnterDoorPlayerState();
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -57,6 +58,8 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public Transform _itemPickupPoint;
     [HideInInspector]
     public Item currentHeldItem = null;
+
+    public EnterDoorEventPort EnterDoorEvent;
 
     [HideInInspector]
     public Vector2 velocity = Vector2.zero;
@@ -96,6 +99,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         climbUp.OnValidate(this);
         takeDamage.OnValidate(this);
         attack.OnValidate(this);
+        enterDoor.OnValidate(this);
     }
 
     private void Awake()
@@ -110,6 +114,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         climbUp.Awake();
         takeDamage.Awake();
         attack.Awake();
+        enterDoor.Awake();
     }
 
     void Start()
@@ -124,6 +129,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         climbUp.Start();
         takeDamage.Start();
         attack.Start();
+        enterDoor.Start();
         
         currentState = idle;
         currentState.Enter();
@@ -132,11 +138,13 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     private void OnEnable()
     {
         _health.OnDie += Die;
+        EnterDoorEvent.OnEnterDoor += OnEnterDoor;
     }
 
     private void OnDisable()
     {
         _health.OnDie -= Die;
+        EnterDoorEvent.OnEnterDoor -= OnEnterDoor;
     }
 
     void Update()
@@ -246,7 +254,13 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     {
         return !(timeSinceDamaged < _invincibillityTime);
     }
-        
+
+    private void OnEnterDoor()
+    {
+        if(currentState != enterDoor)
+            TransitionToState(enterDoor);
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
