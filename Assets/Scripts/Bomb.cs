@@ -45,6 +45,12 @@ public class Bomb : Item
         _fused = true;
     }
 
+    public override void PlaceItemDown()
+    {
+        base.PlaceItemDown();
+        _fused = true;
+    }
+
     public void Explode()
     {
         if (explosion)

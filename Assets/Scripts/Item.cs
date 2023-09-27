@@ -66,7 +66,7 @@ public class Item : MonoBehaviour, IDamageable
         _rb.velocity = velocity;
     }
     
-    public void PlaceItemDown()
+    public virtual void PlaceItemDown()
     {
         pickupTarget = null;
         _rb.isKinematic = false;

@@ -32,14 +32,14 @@ public class ClimbUpLedgePlayerState : PlayerState
     {
         Vector2 playerPos = _player.transform.position;
 
-        return !Physics2D.Raycast(playerPos - Vector2.up * 0.5f, Vector2.right * _player.facingDirection, .7f,_player.groundMask);
+        return !Physics2D.Raycast(playerPos - Vector2.up * 0.49f, Vector2.right * _player.facingDirection, .55f,_player.groundMask);
     }
 
     private bool OnLedge()
     {
         Vector2 playerPos = _player.transform.position;
 
-        return Physics2D.Raycast(playerPos - Vector2.right * (_player.facingDirection * 0.5f), Vector2.down, .7f, _player.groundMask);
+        return Physics2D.Raycast(playerPos - Vector2.right * (_player.facingDirection * 0.4f), Vector2.down, .55f, _player.groundMask);
     }
 
     public override void FixedUpdateState()
