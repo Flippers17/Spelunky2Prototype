@@ -7,7 +7,7 @@ public class Item : MonoBehaviour, IDamageable
     [SerializeField]
     private HurtBox _hurtBox;
     [SerializeField]
-    private Health _health;
+    protected Health _health;
 
     private Transform pickupTarget;
     [SerializeField]
@@ -20,7 +20,7 @@ public class Item : MonoBehaviour, IDamageable
 
     private bool isThrown = false;
 
-    private void OnValidate()
+    protected virtual void OnValidate()
     {
         if (!_rb)
             if (!TryGetComponent(out _rb))
@@ -31,13 +31,13 @@ public class Item : MonoBehaviour, IDamageable
                 Debug.LogWarning("Item is missing Health reference", this);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         _hurtBox.OnHit += OnHit;
         _health.OnDie += Die;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         _hurtBox.OnHit -= OnHit;
         _health.OnDie -= Die;
@@ -49,7 +49,7 @@ public class Item : MonoBehaviour, IDamageable
         pickupTarget = target;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(pickupTarget != null)
         {
@@ -57,7 +57,7 @@ public class Item : MonoBehaviour, IDamageable
         }
     }
 
-    public void ThrowItem(Vector2 velocity)
+    public virtual void ThrowItem(Vector2 velocity)
     {
         pickupTarget = null;
         _rb.isKinematic = false;
