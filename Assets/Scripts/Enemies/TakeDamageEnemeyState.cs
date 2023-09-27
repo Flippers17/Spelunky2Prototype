@@ -6,14 +6,18 @@ public class TakeDamageEnemeyState : EnemyState
 {
     [SerializeField] private float _stunTime = 0.3f;
     private float timer = 0;
-    
-    public override void Awake() { }
+
+    public override void Awake(EnemyBehaviour enemy)
+    {
+        base.Awake(enemy);
+    }
     public override void Start() { }
 
     public override void Enter()
     {
         _enemy.velocity.x = 0;
         timer = 0;
+        _anim.SetBool("Taking Damage", true);
     }
 
     public override void UpdateState()
@@ -38,6 +42,9 @@ public class TakeDamageEnemeyState : EnemyState
     {
         
     }
-    
-    public override void Exit() { }
+
+    public override void Exit()
+    {
+        _anim.SetBool("Taking Damage", false);
+    }
 }

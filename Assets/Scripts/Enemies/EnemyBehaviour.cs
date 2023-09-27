@@ -36,8 +36,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     protected virtual void OnValidate()
     {
-        _sprite = GetComponent<SpriteRenderer>();
-        
+
         if(_health == null)
             if(!TryGetComponent(out _health))
                 Debug.LogWarning("EnemyBehaviour is missing Health reference", this);
@@ -53,7 +52,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void OnEnable()
@@ -70,11 +69,13 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     {
         if (facingDirection == -1)
         {
-            _sprite.flipX = true;
+            if(_sprite)
+                _sprite.flipX = true;
         }
         else
         {
-            _sprite.flipX = false;
+            if(_sprite)
+                _sprite.flipX = false;
         }
         
         if (_timeSinceHit < _invincibillityTime)

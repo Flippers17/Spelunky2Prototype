@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1065c7b702b6a9f419d8fc0389cab3ac
+guid: cc71ed6292031f34cab270479ad86749
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -114,11 +114,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,7 +129,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SnakeSprite_0
+      name: GroundTiles_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4550b3bccf2ffe4d87e2acd8d1a2021
+      internalID: 1678095329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb677adcddef160449190f0f14310484
+      internalID: 323187419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb0eb0a6a040af54282160d706db0c22
+      internalID: -311413449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7bad458e57f05f4f9ab22b089dc6d88
+      internalID: -1866817121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db05aa07939fa1a49a46ae43904def79
+      internalID: -991250692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffb04cb97f59f764e979612c49d9eddc
+      internalID: -641440586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_6
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +269,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49546679d40b42146ada88a66180969a
-      internalID: 1986592097
+      spriteID: 0026b5ded1871ff4a97cc3c2fa9a9d26
+      internalID: -1021079768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SnakeSprite_1
+      name: GroundTiles_7
       rect:
         serializedVersion: 2
         x: 16
@@ -164,8 +290,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04ed982f8f81a6741ba0b0393087dc6c
-      internalID: 1835843926
+      spriteID: 532f4323c74b0044ea8510d17875bf19
+      internalID: 257095708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GroundTiles_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d5011b145b60604ba608dfe2a6d25e8
+      internalID: 1713194944
       vertices: []
       indices: 
       edges: []
@@ -181,8 +328,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SnakeSprite_0: 1986592097
-      SnakeSprite_1: 1835843926
+      GroundTiles_0: 1678095329
+      GroundTiles_1: 323187419
+      GroundTiles_2: -311413449
+      GroundTiles_3: -1866817121
+      GroundTiles_4: -991250692
+      GroundTiles_5: -641440586
+      GroundTiles_6: -1021079768
+      GroundTiles_7: 257095708
+      GroundTiles_8: 1713194944
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

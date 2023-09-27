@@ -64,7 +64,7 @@ public class CrouchPlayerState : PlayerState
 
     private bool CeilingDetection()
     {
-        return Physics2D.OverlapBox((Vector2)_player.transform.position + Vector2.up * 0.25f, new Vector2(1.05f, 0.6f), 0,
+        return Physics2D.OverlapBox((Vector2)_player.transform.position + Vector2.up * 0.25f, new Vector2(.8f, 0.6f), 0,
             _player.groundMask);
     }
 

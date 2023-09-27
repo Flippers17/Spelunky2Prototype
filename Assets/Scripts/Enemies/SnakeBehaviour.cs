@@ -18,13 +18,14 @@ public class SnakeBehaviour : EnemyBehaviour
 
     private void Awake()
     {
-        walking.Awake();
-        takingDamage.Awake();
+        walking.Awake(this);
+        takingDamage.Awake(this);
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         currentState = walking;
 
         walking.Start();

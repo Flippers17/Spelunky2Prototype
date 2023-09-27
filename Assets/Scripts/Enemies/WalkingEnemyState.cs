@@ -6,10 +6,17 @@ using UnityEngine;
 public class WalkingEnemyState : EnemyState
 {
     [SerializeField] protected float _speed = 3f;
-    
-    public override void Awake() { }
+
+    public override void Awake(EnemyBehaviour enemy)
+    {
+        base.Awake(enemy);
+    }
     public override void Start() { }
-    public override void Enter() { }
+
+    public override void Enter()
+    {
+        _anim.SetBool("Walking", true);
+    }
 
     public override void UpdateState()
     {
@@ -30,6 +37,9 @@ public class WalkingEnemyState : EnemyState
             _enemy.facingDirection *= -1;
         }    
     }
-    
-    public override void Exit() { }
+
+    public override void Exit()
+    {
+        _anim.SetBool("Walking", false);
+    }
 }

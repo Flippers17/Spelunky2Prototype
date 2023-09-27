@@ -41,7 +41,7 @@ public class ClimbDownLedgePlayerState : PlayerState
 
     public override void FixedUpdateState()
     {
-        if (_player.isGrounded)
+        if (Physics2D.Raycast((Vector2)_player.transform.position + Vector2.right * (_player.facingDirection * 0.55f), Vector2.down, 0.6f, _player.groundMask))
         {
             _player.velocity = new Vector2(_speed * -_player.facingDirection, -1);
         }

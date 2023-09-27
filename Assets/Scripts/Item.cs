@@ -81,7 +81,7 @@ public class Item : MonoBehaviour, IDamageable
         _health.TakeDamage(dmg);
     }
 
-    public void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);
     }
@@ -94,6 +94,7 @@ public class Item : MonoBehaviour, IDamageable
    
     protected virtual void OnHit()
     {
+        _rb.velocity = Vector2.zero;
         TakeDamage(hitDamageTaken, Vector2.zero);
     }
 }
