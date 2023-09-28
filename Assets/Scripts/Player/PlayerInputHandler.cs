@@ -49,6 +49,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnDisable()
     {
+        if (horizontalMoveAction == null)
+            return;
+
         horizontalMoveAction.Disable();
         jumpAction.Disable();
         runAction.Disable();

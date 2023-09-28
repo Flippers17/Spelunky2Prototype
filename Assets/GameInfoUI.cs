@@ -9,19 +9,69 @@ public class GameInfoUI : MonoBehaviour
     private ScoreEventPort _scoreEvent;
     [SerializeField]
     private TextMeshProUGUI _scoreText;
+    [SerializeField]
+    private PlayerHealthSO _playerHealthSO;
+    [SerializeField]
+    private TextMeshProUGUI _healthText;
+
+    [SerializeField]
+    private GameObject _deathScreen;
 
     private void OnEnable()
     {
-        _scoreEvent.OnUpdateScore += UpdateScore;
+        if (_scoreEvent)
+        {
+            _scoreEvent.OnUpdateScore += UpdateScore;
+        }
+
+        if (_playerHealthSO)
+        {
+            _playerHealthSO.OnChangeHealth += UpdateHealth;
+            _playerHealthSO.OnDie += OnPlayerDeath;
+        }
+
+        GameManager.instance.UpdateInfo();
     }
 
     private void OnDisable()
     {
-        _scoreEvent.OnUpdateScore -= UpdateScore;
+        if(_scoreEvent)
+            _scoreEvent.OnUpdateScore -= UpdateScore;
+
+        if (_playerHealthSO)
+        {
+            _playerHealthSO.OnChangeHealth -= UpdateHealth;
+            _playerHealthSO.OnDie -= OnPlayerDeath;
+        }
     }
 
     private void UpdateScore(int amount)
     {
         _scoreText.text = "Score: " + amount;
+    }
+    
+    private void UpdateHealth(int amount)
+    {
+        _healthText.text = "X " + amount;
+    }
+
+    private void OnPlayerDeath()
+    {
+        _deathScreen.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    
+    public void RestartGame()
+    {
+        GameManager.instance.StartRun();
+    }
+    
+    public void GoToMainMenu()
+    {
+        GameManager.instance.LoadLevelAtIndex(0);
     }
 }

@@ -43,10 +43,13 @@ public class CrouchPlayerState : PlayerState
 
     private void CheckTransitions()
     {
-        if (LedgeGrabDetection() && _input.HoldingCrouch() && _input.HoldingJump())
+        if (_input.HoldingCrouch() && _input.HoldingJump())
         {
-            _player.TransitionToState(_player.climbDown);
-            return;
+            if (LedgeGrabDetection())
+            {
+                _player.TransitionToState(_player.climbDown);
+                return;
+            }
         }
 
         if(CeilingDetection())
@@ -75,7 +78,10 @@ public class CrouchPlayerState : PlayerState
 
         Vector2 playerPos = _player.transform.position;
 
-        return !Physics2D.Raycast(playerPos + Vector2.right * (.8f * _player.facingDirection), Vector2.down, 2f, _player.groundMask)
+        if (Physics2D.Raycast(playerPos, Vector2.right * _player.facingDirection, 1.4f, _player.groundMask))
+            return false;
+
+        return !Physics2D.Raycast(playerPos + Vector2.right * (.5f * _player.facingDirection), Vector2.down, 2f, _player.groundMask)
                 && _player.isGrounded;
     }
 

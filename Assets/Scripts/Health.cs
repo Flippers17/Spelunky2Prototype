@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
         OnDie -= Dying;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
 

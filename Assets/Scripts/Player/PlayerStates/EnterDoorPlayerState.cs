@@ -34,7 +34,8 @@ public class EnterDoorPlayerState : PlayerState
 
     public override void Exit()
     {
-        _player.transform.position = EnterDoorEvent.targetDoor.enterPoint.position;
+        if(EnterDoorEvent.targetDoor != null)
+            _player.transform.position = EnterDoorEvent.targetDoor.enterPoint.position;
         EnterDoorEvent.InvokeOnExitDoor();
     }
 

@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [HideInInspector]
-    public GameManager instance;
+    public static GameManager instance;
 
     [Header("Score")]
     public int score = 0;
     public ScoreEventPort scoreEvent;
+    public PlayerHealthSO playerHealthSO;
+
+    [SerializeField]
+    private int currentLevelIndex = 0;
 
     private void Awake()
     {
@@ -17,10 +22,12 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            playerHealthSO.ResetHealth();
         }
         else
             Destroy(this);
     }
+
 
     private void OnEnable()
     {
@@ -35,6 +42,32 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         score += amount;
+        scoreEvent.UpdateScore(score);
+    }
+
+    public void LoadNextLevel()
+    {
+        currentLevelIndex++;
+        SceneManager.LoadScene(currentLevelIndex);
+    }
+    
+    public void LoadLevelAtIndex(int index)
+    {
+        SceneManager.LoadScene(index);   
+    }
+    
+    public void StartRun()
+    {
+        playerHealthSO.ResetHealth();
+        score = 0;
+        scoreEvent.UpdateScore(score);
+        currentLevelIndex = 2;
+        SceneManager.LoadScene(2);
+    }
+
+    public void UpdateInfo()
+    {
+        playerHealthSO.ChangeHealth(0);
         scoreEvent.UpdateScore(score);
     }
 }

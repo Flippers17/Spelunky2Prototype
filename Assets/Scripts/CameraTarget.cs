@@ -36,13 +36,15 @@ public class CameraTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_input.HoldingCrouch())
+        bool isMoving = _input.GetHorizontalMoveInput() != 0;
+
+        if (_input.HoldingCrouch() && !isMoving)
         {
             if(_timeLookingDown < 1)
                 _timeLookingDown += Time.deltaTime;
             _timeLookingUp = 0;
         }
-        else if (_input.HoldingClimb())
+        else if (_input.HoldingClimb() && !isMoving)
         {
             if(_timeLookingUp < 1)
                 _timeLookingUp += Time.deltaTime;

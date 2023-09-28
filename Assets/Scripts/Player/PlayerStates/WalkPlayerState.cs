@@ -34,7 +34,7 @@ public class WalkPlayerState : PlayerState
         else
             _player.TransitionToState(_player.idle);
 
-        CheckTransitions();
+        
     }
 
 
@@ -55,14 +55,17 @@ public class WalkPlayerState : PlayerState
     {
         if (_player.isGrounded || _player.velocity.y > 0.1f)
             return false;
-        
+
         Vector2 playerPos = _player.transform.position;
-        
-        return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f, 
-                   _player.groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player.groundMask) &&
-               !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player.groundMask);
+
+        if (Physics2D.Raycast(playerPos, Vector2.up, 1.2f, _player.groundMask))
+            return false;
+
+        return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f,
+                   _player.groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput, 0.7f, _player.groundMask) &&
+               !Physics2D.Raycast(playerPos, Vector2.down, 1.5f, _player.groundMask);
     }
-    
+
 
     public override void FixedUpdateState()
     {
@@ -87,6 +90,8 @@ public class WalkPlayerState : PlayerState
             _anim.SetBool("Walking", true);
             _player.velocity.y = -1;
         }
+
+        CheckTransitions();
     }
 
     public override void Exit()

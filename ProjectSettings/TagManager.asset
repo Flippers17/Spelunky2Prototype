@@ -17,7 +17,7 @@ TagManager:
   - Player
   - Enemies
   - Items
-  - 
+  - Treasure
   - 
   - 
   - 
@@ -39,8 +39,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2418891841
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 19130851
+    locked: 0
+  - name: Entities
+    uniqueID: 1228297413
     locked: 0
   - name: Player
     uniqueID: 3680392335

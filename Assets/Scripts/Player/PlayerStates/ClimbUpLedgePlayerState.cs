@@ -12,7 +12,7 @@ public class ClimbUpLedgePlayerState : PlayerState
 
     public override void Enter()
     {
-
+        _anim.SetBool("Climbing Up", true);
     }
 
     public override void UpdateState()
@@ -56,7 +56,7 @@ public class ClimbUpLedgePlayerState : PlayerState
 
     public override void Exit()
     {
-        
+        _anim.SetBool("Climbing Up", false);
     }
 
 }

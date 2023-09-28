@@ -38,7 +38,6 @@ public class RunningPlayerState : PlayerState
         else
             _player.TransitionToState(_player.idle);
 
-        CheckTransitions();
     }
 
 
@@ -58,7 +57,10 @@ public class RunningPlayerState : PlayerState
             return false;
         
         Vector2 playerPos = _player.transform.position;
-        
+
+        if (Physics2D.Raycast(playerPos, Vector2.up, 1.2f, _player.groundMask))
+            return false;
+
         return !Physics2D.Raycast(playerPos + Vector2.up * 0.4f, Vector2.right * _walkInput, 1.2f, 
                    _player.groundMask) && Physics2D.Raycast(playerPos + Vector2.up * 0.2f, Vector2.right * _walkInput ,0.7f, _player.groundMask) &&
                !Physics2D.Raycast(playerPos, Vector2.down,   1.5f, _player.groundMask);
@@ -87,6 +89,8 @@ public class RunningPlayerState : PlayerState
             _anim.SetBool("Running", true);
             _player.velocity.y = -1;
         }
+
+        CheckTransitions();
     }
 
     public override void Exit()

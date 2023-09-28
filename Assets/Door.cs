@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.Events;
 
 public class Door : MonoBehaviour
 {
     public Transform enterPoint;
 
-    [SerializeField] private EnterDoorEventPort enterDoorEventPort;
+    [SerializeField] protected EnterDoorEventPort enterDoorEventPort;
 
-    [SerializeField] private Door targetDoor;
+    [SerializeField] protected Door targetDoor;
+
 
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -26,7 +28,7 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void EnterDoor(PlayerBehaviour player)
+    protected virtual void EnterDoor(PlayerBehaviour player)
     {
         player.transform.position = enterPoint.position;
         enterDoorEventPort.InvokeOnEnterDoor(targetDoor);

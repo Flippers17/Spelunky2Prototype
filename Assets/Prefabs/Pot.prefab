@@ -171,6 +171,7 @@ MonoBehaviour:
     m_Bits: 640
   possibleSpawns:
   - {fileID: 8096809429634894567, guid: d070dc3dff401d8479a2200211ff735f, type: 3}
+  - {fileID: 1955941124046878972, guid: aa2b1d68aa578894ca96d5be956e33f3, type: 3}
 --- !u!1 &3760457800700391333
 GameObject:
   m_ObjectHideFlags: 0

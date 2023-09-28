@@ -30,6 +30,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public TakeDamagePlayerState takeDamage = new TakeDamagePlayerState();
     public AttackPlayerState attack = new AttackPlayerState();
     public EnterDoorPlayerState enterDoor = new EnterDoorPlayerState();
+    public DeadPlayerState dead = new DeadPlayerState();
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -100,6 +101,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         takeDamage.OnValidate(this);
         attack.OnValidate(this);
         enterDoor.OnValidate(this);
+        dead.OnValidate(this);
     }
 
     private void Awake()
@@ -115,6 +117,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         takeDamage.Awake();
         attack.Awake();
         enterDoor.Awake();
+        dead.Awake();
     }
 
     void Start()
@@ -130,6 +133,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         takeDamage.Start();
         attack.Start();
         enterDoor.Start();
+        dead.Start();
         
         currentState = idle;
         currentState.Enter();
@@ -194,10 +198,13 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public void TakeDamage(int damage, Vector2 knockback)
     {
         //Transition to Take damage state
-        if (currentState == takeDamage || timeSinceDamaged < _invincibillityTime)
+        if (currentState == takeDamage || timeSinceDamaged < _invincibillityTime || currentState == dead)
             return;
 
-        TransitionToState(takeDamage);
+        _health.TakeDamage(damage);
+
+        if (currentState != dead)
+            TransitionToState(takeDamage);
         velocity = knockback;
         Debug.Log("Took damage");
     }
@@ -205,6 +212,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public void Die()
     {
         //Transition to Dead state
+        TransitionToState(dead);
         Debug.Log("Player Died");
     }
 

@@ -12,9 +12,6 @@ public class EnterDoorEventPort : ScriptableObject
 
     public void InvokeOnEnterDoor(Door TargetDoor)
     {
-        if(!TargetDoor)
-            return;
-
         targetDoor = TargetDoor;
         OnEnterDoor?.Invoke();
     }

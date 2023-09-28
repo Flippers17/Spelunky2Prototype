@@ -13,6 +13,8 @@ public class Bomb : Item
 
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    private GameObject fuseEffect;
 
     protected override void OnEnable()
     {
@@ -37,6 +39,7 @@ public class Bomb : Item
             else
                 TakeDamage(99, Vector2.zero);
         }
+        fuseEffect.SetActive(_fused);
     }
 
     public override void ThrowItem(Vector2 velocity)
