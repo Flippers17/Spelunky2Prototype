@@ -17,7 +17,7 @@ public class ClimbUpLedgePlayerState : PlayerState
 
     public override void UpdateState()
     {
-        CheckTransitions();
+        
     }
 
 
@@ -32,14 +32,14 @@ public class ClimbUpLedgePlayerState : PlayerState
     {
         Vector2 playerPos = _player.transform.position;
 
-        return !Physics2D.Raycast(playerPos - Vector2.up * 0.49f, Vector2.right * _player.facingDirection, .55f,_player.groundMask);
+        return !Physics2D.Raycast(playerPos - Vector2.up * 0.5f, Vector2.right * _player.facingDirection, .55f,_player.groundMask);
     }
 
     private bool OnLedge()
     {
         Vector2 playerPos = _player.transform.position;
 
-        return Physics2D.Raycast(playerPos - Vector2.right * (_player.facingDirection * 0.4f), Vector2.down, .55f, _player.groundMask);
+        return Physics2D.Raycast(playerPos - Vector2.right * (_player.facingDirection * 0.4f), Vector2.down, .65f, _player.groundMask);
     }
 
     public override void FixedUpdateState()
@@ -50,6 +50,8 @@ public class ClimbUpLedgePlayerState : PlayerState
         }
         else
             _player.velocity = new Vector2(_speed * _player.facingDirection, 0);
+
+        CheckTransitions();
     }
 
     public override void Exit()

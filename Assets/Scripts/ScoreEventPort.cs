@@ -7,9 +7,15 @@ using UnityEngine.Events;
 public class ScoreEventPort : ScriptableObject
 {
     public UnityAction<int> OnGainScore = delegate { };
+    public UnityAction<int> OnUpdateScore = delegate { };
 
     public void IncreaseScore(int amount)
     {
         OnGainScore?.Invoke(amount);
+    }
+
+    public void UpdateScore(int amount)
+    {
+        OnUpdateScore?.Invoke(amount);
     }
 }

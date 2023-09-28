@@ -14,6 +14,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     [SerializeField] private float _gravity = 30;
     [SerializeField] private Transform _groundCheck;
     public LayerMask groundMask;
+    [SerializeField]
+    private ScoreEventPort _scoreEvent;
+    [SerializeField]
+    private int _scoreGain = 100;
 
     protected EnemyState currentState;
 
@@ -105,6 +109,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
     public void Die()
     {
         Debug.Log(this.gameObject.name + " has died");
+        _scoreEvent.IncreaseScore(_scoreGain);
         Destroy(gameObject);
     }
 

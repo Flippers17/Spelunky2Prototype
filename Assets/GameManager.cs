@@ -35,5 +35,6 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         score += amount;
+        scoreEvent.UpdateScore(score);
     }
 }

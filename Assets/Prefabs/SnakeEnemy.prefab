@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1228297413
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1986592097, guid: 1065c7b702b6a9f419d8fc0389cab3ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,6 +126,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
+  _scoreEvent: {fileID: 11400000, guid: 8bbf73ed330af1748a1ba49d22a50802, type: 2}
+  _scoreGain: 100
   facingDirection: 1
   velocity: {x: 0, y: 0}
   walking:
@@ -274,9 +276,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _point: {fileID: 8096809431574773841}
+  collisionType: 0
   damage: 1
   knockbackVelocity: 5
   _collisionMask:
     serializedVersion: 2
     m_Bits: 256
   _oneTimeHit: 0
+  _targetOnEnable: 0
+  _size: {x: 0, y: 0}
