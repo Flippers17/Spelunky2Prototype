@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8065856607067339839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8065856607067339825}
+  - component: {fileID: 8065856607067339838}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8065856607067339825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065856607067339839}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.8054278, y: 1.8361667, z: -0.050720125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8065856607067339838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8065856607067339839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9eb4b8a56ebb945a1c2a8c777a7f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Footsteps
+    clips:
+    - {fileID: 8300000, guid: de9a2a7f01b2fd8498e62d233d9b1d21, type: 3}
+    - {fileID: 8300000, guid: 86bd0ee24bb92ed4bbada5e17d0f53e3, type: 3}
+    - {fileID: 8300000, guid: 880da515f939d1b4e8f123e5ae4ff883, type: 3}
+    - {fileID: 8300000, guid: 33f96be3bf416b549b5d3024d2fb1947, type: 3}
+    - {fileID: 8300000, guid: 36107e8d8b030904aa9a4dd78c6f4319, type: 3}
+    - {fileID: 8300000, guid: 1211db633d91ff14781a09fe502ce49e, type: 3}
+    - {fileID: 8300000, guid: 1fa5e675de951664f8fe9c70aa0da91e, type: 3}
+    - {fileID: 8300000, guid: 66629d59bbe90b14a8ec18636d2f5af9, type: 3}
+    - {fileID: 8300000, guid: 2707bcec02458ad449386f81405e3c97, type: 3}
+    mixer: {fileID: -5038525873703553699, guid: 91e2c50f3a444b64ba23ca579613ff7c, type: 2}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: Whip
+    clips:
+    - {fileID: 8300000, guid: 736ef0f563a4a0840ba69ccd0aa3cd15, type: 3}
+    mixer: {fileID: -5038525873703553699, guid: 91e2c50f3a444b64ba23ca579613ff7c, type: 2}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}

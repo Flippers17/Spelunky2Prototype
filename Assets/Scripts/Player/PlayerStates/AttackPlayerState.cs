@@ -24,8 +24,10 @@ public class AttackPlayerState : PlayerState
             return;
         }
 
-        _player.velocity.x = 0;
+        if(_player.isGrounded)
+            _player.velocity.x = 0;
         _anim.SetBool("Attacking", true);
+        _anim.SetBool("Jumping", false);
         timer = 0;
     }
 
@@ -35,6 +37,11 @@ public class AttackPlayerState : PlayerState
             timer += Time.deltaTime;
         else
             _player.TransitionToState(_player.idle);
+
+        if (_player.isGrounded)
+            _player.velocity.y = -1;
+        else
+            _player.velocity.y -= _player.GetGravity() * Time.deltaTime;
     }
 
     public override void FixedUpdateState()

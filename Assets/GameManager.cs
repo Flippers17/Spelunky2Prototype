@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
     public ScoreEventPort scoreEvent;
     public PlayerHealthSO playerHealthSO;
 
-    [SerializeField]
-    private int currentLevelIndex = 0;
+    private int currentLevelIndex = 2;
 
     private void Awake()
     {

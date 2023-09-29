@@ -17,6 +17,7 @@ public class CrouchPlayerState : PlayerState
     public override void Enter()
     {
         _anim.SetBool("Crawling", true);
+        _anim.SetBool("Jumping", false);
         _defaultCollider.enabled = false;
         _crouchCollider.enabled = true;
         _input.OnAttack += PickUpItem;

@@ -109,9 +109,6 @@ public class RunningPlayerState : PlayerState
 
     private void TransitionToAttack()
     {
-        if (!_player.isGrounded)
-            return;
-
         _player.TransitionToState(_player.attack);
     }
 

@@ -111,9 +111,6 @@ public class WalkPlayerState : PlayerState
 
     private void TransitionToAttack()
     {
-        if(!_player.isGrounded)
-            return;
-        
         _player.TransitionToState(_player.attack);
     }
 
