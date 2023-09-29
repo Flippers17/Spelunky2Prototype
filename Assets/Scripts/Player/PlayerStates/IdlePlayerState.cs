@@ -47,8 +47,29 @@ public class IdlePlayerState : PlayerState
         }
         else
             _player.velocity.y = -1;
+
+        if (_input.HoldingClimb() && LadderCheck(out Transform ladder))
+        {
+            _player.transform.position = ladder.position;
+            _player.TransitionToState(_player.climbLadder);
+        }
     }
 
+
+    private bool LadderCheck(out Transform ladder)
+    {
+        ladder = null;
+
+        Collider2D[] results = Physics2D.OverlapCircleAll(_player.transform.position, .2f, 1 << 12);
+        if (results != null && results.Length != 0)
+        {
+            ladder = results[0].transform;
+            return true;
+        }
+
+        return false;
+    }
+    
     public override void Exit()
     {
         _input.OnAttack -= TransitionToAttack;

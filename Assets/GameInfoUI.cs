@@ -13,6 +13,10 @@ public class GameInfoUI : MonoBehaviour
     private PlayerHealthSO _playerHealthSO;
     [SerializeField]
     private TextMeshProUGUI _healthText;
+    [SerializeField]
+    private ScoreEventPort _bombPickupEvent;
+    [SerializeField]
+    private TextMeshProUGUI _bombsText;
 
     [SerializeField]
     private GameObject _deathScreen;
@@ -23,14 +27,20 @@ public class GameInfoUI : MonoBehaviour
         {
             _scoreEvent.OnUpdateScore += UpdateScore;
         }
+        
+        if (_bombPickupEvent)
+        {
+            _bombPickupEvent.OnUpdateScore += UpdateBombs;
+        }
 
         if (_playerHealthSO)
         {
             _playerHealthSO.OnChangeHealth += UpdateHealth;
             _playerHealthSO.OnDie += OnPlayerDeath;
         }
-
-        GameManager.instance.UpdateInfo();
+        
+        if(GameManager.instance)
+            GameManager.instance.UpdateInfo();
     }
 
     private void OnDisable()
@@ -38,6 +48,11 @@ public class GameInfoUI : MonoBehaviour
         if(_scoreEvent)
             _scoreEvent.OnUpdateScore -= UpdateScore;
 
+        if (_bombPickupEvent)
+        {
+            _bombPickupEvent.OnUpdateScore -= UpdateBombs;
+        }
+        
         if (_playerHealthSO)
         {
             _playerHealthSO.OnChangeHealth -= UpdateHealth;
@@ -53,6 +68,11 @@ public class GameInfoUI : MonoBehaviour
     private void UpdateHealth(int amount)
     {
         _healthText.text = "X " + amount;
+    }
+    
+    private void UpdateBombs(int amount)
+    {
+        _bombsText.text = "X " + amount;
     }
 
     private void OnPlayerDeath()

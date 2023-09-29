@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Explosion
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Enemies
   - Items
   - Treasure
-  - 
+  - Ladder
   - 
   - 
   - 

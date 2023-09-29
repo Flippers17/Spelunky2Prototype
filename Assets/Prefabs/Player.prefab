@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 6148496320042662282}
   - component: {fileID: 6148496320042662283}
   - component: {fileID: 5809693425906665636}
+  - component: {fileID: 8388328644013247730}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -163,6 +164,8 @@ MonoBehaviour:
     _throwingVelocity: {x: 12, y: 5}
   enterDoor:
     waitTime: 1
+  climbLadder:
+    _climbSpeed: 4
   _rb: {fileID: 6148496320042662290}
   anim: {fileID: 6148496320042662282}
   _health: {fileID: 6148496320042662276}
@@ -363,6 +366,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e94dc0e2cf38d34fac6ecbfd0388cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8388328644013247730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6148496320042662288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d762c3052a868944b22bacb9b478a0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerBehaviour: {fileID: 6148496320042662291}
+  _input: {fileID: 6148496320042662286}
+  _bombPrefab: {fileID: 6504350764529137455, guid: 39fab364a51862f469b31d7b83ec81b6, type: 3}
+  _pickUpBombEvent: {fileID: 11400000, guid: 48956158311f9354594999a7f0b45da4, type: 2}
+  _bombsInInventory: 5
+  _bombPlaceCooldown: 10
 --- !u!1 &6148496320073253384
 GameObject:
   m_ObjectHideFlags: 0

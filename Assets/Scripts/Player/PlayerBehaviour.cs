@@ -31,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public AttackPlayerState attack = new AttackPlayerState();
     public EnterDoorPlayerState enterDoor = new EnterDoorPlayerState();
     public DeadPlayerState dead = new DeadPlayerState();
+    public ClimbLadderPlayerState climbLadder = new ClimbLadderPlayerState();
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -66,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public Vector2 velocity = Vector2.zero;
     [HideInInspector]
     public int facingDirection = 1;
-
+    
     private void OnValidate()
     {
         _sprite = GetComponent<SpriteRenderer>();
@@ -102,6 +103,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         attack.OnValidate(this);
         enterDoor.OnValidate(this);
         dead.OnValidate(this);
+        climbLadder.OnValidate(this);
     }
 
     private void Awake()
@@ -118,6 +120,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         attack.Awake();
         enterDoor.Awake();
         dead.Awake();
+        climbLadder.Awake();
     }
 
     void Start()
@@ -134,6 +137,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         attack.Start();
         enterDoor.Start();
         dead.Start();
+        climbLadder.Start();
         
         currentState = idle;
         currentState.Enter();
@@ -186,6 +190,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         _rb.velocity = velocity;
         
     }
+    
 
     public void TransitionToState(PlayerState targetState)
     {

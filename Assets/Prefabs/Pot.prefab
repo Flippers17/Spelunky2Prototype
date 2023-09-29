@@ -172,6 +172,9 @@ MonoBehaviour:
   possibleSpawns:
   - {fileID: 8096809429634894567, guid: d070dc3dff401d8479a2200211ff735f, type: 3}
   - {fileID: 1955941124046878972, guid: aa2b1d68aa578894ca96d5be956e33f3, type: 3}
+  - {fileID: 7117030568116060919, guid: be3b0665288080f4187ec8e235236d50, type: 3}
+  - {fileID: 6504350764529137455, guid: 39fab364a51862f469b31d7b83ec81b6, type: 3}
+  dropRate: 0.6
 --- !u!1 &3760457800700391333
 GameObject:
   m_ObjectHideFlags: 0

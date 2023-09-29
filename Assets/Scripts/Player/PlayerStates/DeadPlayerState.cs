@@ -8,6 +8,7 @@ public class DeadPlayerState : PlayerState
     public override void Enter()
     {
         _anim.SetBool("Dead", true);
+        _anim.SetBool("Jumping", false);
     }
 
     public override void UpdateState()
