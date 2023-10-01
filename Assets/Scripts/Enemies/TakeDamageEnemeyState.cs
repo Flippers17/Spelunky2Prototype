@@ -7,7 +7,7 @@ public class TakeDamageEnemeyState : EnemyState
     [SerializeField] private float _stunTime = 0.3f;
     private float timer = 0;
 
-    public override void Awake(EnemyBehaviour enemy)
+    public override void Awake(SnakeBehaviour enemy)
     {
         base.Awake(enemy);
     }
@@ -40,7 +40,7 @@ public class TakeDamageEnemeyState : EnemyState
 
     protected virtual void TransitionFromState()
     {
-        
+        _enemy.TransitionToState(_enemy.walking);
     }
 
     public override void Exit()

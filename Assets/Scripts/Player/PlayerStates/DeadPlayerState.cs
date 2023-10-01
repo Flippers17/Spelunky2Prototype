@@ -16,6 +16,9 @@ public class DeadPlayerState : PlayerState
         if (!_player.isGrounded)
             _player.velocity.y -= _player.gravity * Time.deltaTime;
         else
+        {
             _player.velocity.y = -1;
+            _player.velocity.x = 0;
+        }
     }
 }

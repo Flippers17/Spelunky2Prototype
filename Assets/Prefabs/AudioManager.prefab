@@ -67,3 +67,17 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  - name: Pickup Coin
+    clips:
+    - {fileID: 8300000, guid: 4d567d90bc32a204fa60ff23ac6f7d4c, type: 3}
+    mixer: {fileID: -5038525873703553699, guid: 91e2c50f3a444b64ba23ca579613ff7c, type: 2}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: Hurt
+    clips:
+    - {fileID: 8300000, guid: f7c1bc00af27e464c89b52bb36322447, type: 3}
+    mixer: {fileID: -5038525873703553699, guid: 91e2c50f3a444b64ba23ca579613ff7c, type: 2}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}

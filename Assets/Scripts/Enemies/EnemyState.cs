@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public abstract class EnemyState
 {
-    protected EnemyBehaviour _enemy;
+    protected SnakeBehaviour _enemy;
     protected Animator _anim;
 
-    public virtual void Awake(EnemyBehaviour enemy)
+    public virtual void Awake(SnakeBehaviour enemy)
     {
         if(_enemy != null)
             return;
@@ -23,7 +23,7 @@ public abstract class EnemyState
     public virtual void FixedUpdateState() { }
     public virtual void Exit() { }
 
-    public virtual void OnValidate(EnemyBehaviour enemy)
+    public virtual void OnValidate(SnakeBehaviour enemy)
     {
         _enemy = enemy;
         _anim = enemy.anim;

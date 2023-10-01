@@ -9823,6 +9823,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 7562121114689998145, guid: 3e301f0f67836054cae36c758ed0efea, type: 3}
+      propertyPath: m_fontSize
+      value: 49.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562121115095818398, guid: 3e301f0f67836054cae36c758ed0efea, type: 3}
+      propertyPath: m_fontSize
+      value: 46.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562121116476828650, guid: 3e301f0f67836054cae36c758ed0efea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e301f0f67836054cae36c758ed0efea, type: 3}
 --- !u!1001 &1548528637

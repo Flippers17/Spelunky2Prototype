@@ -18,6 +18,8 @@ public class ClimbLadderPlayerState : PlayerState
         _input.OnAttack += TransitionToAttack;
         _player.velocity.x = 0;
         _onLadder = true;
+        _anim.SetBool("Climbing Ladder", true);
+        _anim.SetBool("Jumping", false);
     }
 
     public override void UpdateState()
@@ -35,11 +37,22 @@ public class ClimbLadderPlayerState : PlayerState
         }
         
         if (_input.HoldingClimb())
+        {
             _player.velocity.y = _climbSpeed;
+            _anim.speed = 1;
+        }
         else if (_input.HoldingCrouch())
+        {
             _player.velocity.y = -_climbSpeed;
+            _anim.speed = 1;
+            if (_player.isGrounded)
+                _player.TransitionToState(_player.idle);
+        }
         else
+        {
             _player.velocity.y = 0;
+            _anim.speed = 0;
+        }
     }
 
     public override void FixedUpdateState()
@@ -61,6 +74,8 @@ public class ClimbLadderPlayerState : PlayerState
     public override void Exit()
     {
         _input.OnAttack -= TransitionToAttack;
+        _anim.SetBool("Climbing Ladder", false);
+        _anim.speed = 1;
     }
 
     private void TransitionToJump()

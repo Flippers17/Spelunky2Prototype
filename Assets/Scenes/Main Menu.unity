@@ -628,7 +628,10 @@ MonoBehaviour:
   _scoreText: {fileID: 0}
   _playerHealthSO: {fileID: 0}
   _healthText: {fileID: 0}
+  _bombPickupEvent: {fileID: 0}
+  _bombsText: {fileID: 0}
   _deathScreen: {fileID: 0}
+  _finalScoreText: {fileID: 0}
 --- !u!1 &1283576055
 GameObject:
   m_ObjectHideFlags: 0

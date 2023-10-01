@@ -6,18 +6,21 @@ using UnityEngine;
 
 public class SnakeBehaviour : EnemyBehaviour
 {
-    public SnakeWalkingState walking = new SnakeWalkingState();
-    public SnakeTakeDamageState takingDamage = new SnakeTakeDamageState();
+    public IdleEnemyState idle = new IdleEnemyState();
+    public WalkingEnemyState walking = new WalkingEnemyState();
+    public TakeDamageEnemeyState takingDamage = new TakeDamageEnemeyState();
 
     protected override void OnValidate()
     {
         base.OnValidate();
+        idle.OnValidate(this);
         walking.OnValidate(this);
         takingDamage.OnValidate(this);
     }
 
     private void Awake()
     {
+        idle.Awake(this);
         walking.Awake(this);
         takingDamage.Awake(this);
     }
@@ -27,7 +30,9 @@ public class SnakeBehaviour : EnemyBehaviour
     {
         base.Start();
         currentState = walking;
+        currentState.Enter();
 
+        idle.Start();
         walking.Start();
         takingDamage.Start();
     }

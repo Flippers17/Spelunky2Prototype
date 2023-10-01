@@ -16,6 +16,7 @@ public class TakeDamagePlayerState : PlayerState
     {
         _anim.SetBool("Jumping", false);
         _anim.SetBool("Taking Damage", true);
+        AudioManager.instance.Play("Hurt");
         timer = 0;
     }
 

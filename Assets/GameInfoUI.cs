@@ -20,6 +20,8 @@ public class GameInfoUI : MonoBehaviour
 
     [SerializeField]
     private GameObject _deathScreen;
+    [SerializeField]
+    private TextMeshProUGUI _finalScoreText;
 
     private void OnEnable()
     {
@@ -62,7 +64,10 @@ public class GameInfoUI : MonoBehaviour
 
     private void UpdateScore(int amount)
     {
-        _scoreText.text = "Score: " + amount;
+        if(_scoreText)
+            _scoreText.text = "Score: " + amount;
+        if(_finalScoreText)
+            _finalScoreText.text = "Final Score: " + amount;
     }
     
     private void UpdateHealth(int amount)

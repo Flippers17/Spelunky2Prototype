@@ -5,16 +5,23 @@ using UnityEngine;
 [System.Serializable]
 public class WalkingEnemyState : EnemyState
 {
-    [SerializeField] protected float _speed = 3f;
+    [SerializeField] private float _speed = 3f;
+    [SerializeField] private float _walkTime = 3f;
 
-    public override void Awake(EnemyBehaviour enemy)
+    private float timer = 0;
+
+    public override void Awake(SnakeBehaviour enemy)
     {
         base.Awake(enemy);
     }
-    public override void Start() { }
+    public override void Start() 
+    {
+        timer = Random.Range(0, _walkTime);
+    }
 
     public override void Enter()
     {
+        timer = 0;
         _anim.SetBool("Walking", true);
     }
 
@@ -26,6 +33,11 @@ public class WalkingEnemyState : EnemyState
             _enemy.velocity.y = -1;
         else
             _enemy.velocity.y -= _enemy.gravity * Time.deltaTime;
+
+        if (timer < _walkTime)
+            timer += Time.deltaTime;
+        else
+            _enemy.TransitionToState(_enemy.idle);
     }
 
     public override void FixedUpdateState()

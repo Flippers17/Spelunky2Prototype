@@ -537,7 +537,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7562121115237070083}
         m_TargetAssemblyTypeName: GameInfoUI, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: GoToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -782,6 +782,7 @@ MonoBehaviour:
   _bombPickupEvent: {fileID: 11400000, guid: 48956158311f9354594999a7f0b45da4, type: 2}
   _bombsText: {fileID: 7562121114689998145}
   _deathScreen: {fileID: 7562121116476828650}
+  _finalScoreText: {fileID: 7562121114677431565}
 --- !u!1 &7562121115448462883
 GameObject:
   m_ObjectHideFlags: 0
