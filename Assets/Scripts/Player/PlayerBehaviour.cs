@@ -36,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
     public Animator anim;
+    [SerializeField, HideInInspector]
     private SpriteRenderer _sprite;
     [SerializeField, Space(10)]
     private Health _health;
@@ -157,6 +158,9 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     void Update()
     {
+        if(currentState != null)
+            currentState.UpdateState();
+        
         if (facingDirection == -1)
         {
             _sprite.flipX = true;
@@ -168,8 +172,6 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
             _whipHurtBox.transform.localPosition = new Vector3(1, _whipHurtBox.transform.localPosition.y, 0);
         }
         
-        if(currentState != null)
-            currentState.UpdateState();
 
         if (currentState != takeDamage && timeSinceDamaged < _invincibillityTime)
         {
@@ -197,7 +199,6 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         currentState.Exit();
         currentState = targetState;
         currentState.Enter();
-        //Debug.Log("Transitioned to " + currentState + " state");
     }
 
     public void TakeDamage(int damage, Vector2 knockback)

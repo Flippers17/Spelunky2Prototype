@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class ClimbUpLedgePlayerState : PlayerState
 {
     [SerializeField] private float _speed = 4f;

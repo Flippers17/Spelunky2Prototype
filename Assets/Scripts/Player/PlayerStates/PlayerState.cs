@@ -6,8 +6,11 @@ using UnityEngine;
 [System.Serializable]
 public abstract class PlayerState
 {
+    [SerializeField, HideInInspector]
     protected PlayerBehaviour _player;
+    [SerializeField, HideInInspector]
     protected PlayerInputHandler _input;
+    [SerializeField, HideInInspector]
     protected Animator _anim;
     
     public virtual void Awake(){}

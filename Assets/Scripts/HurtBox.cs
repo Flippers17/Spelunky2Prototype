@@ -152,6 +152,7 @@ public class HurtBox : MonoBehaviour
 }
 
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(HurtBox))]
 public class HurtBoxEditor : Editor
 {
@@ -175,3 +176,4 @@ public class HurtBoxEditor : Editor
         }
     }
 }
+#endif

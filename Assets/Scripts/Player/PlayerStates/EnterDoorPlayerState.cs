@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class EnterDoorPlayerState : PlayerState
 {
+    [SerializeField, HideInInspector]
     private EnterDoorEventPort EnterDoorEvent;
     [SerializeField] private float waitTime = 1f;
     private float timer = 0;
