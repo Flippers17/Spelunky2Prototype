@@ -35,13 +35,33 @@ public class LevelGenerator : MonoBehaviour
 
         //CopyRoomToPlace(_roomGrid._topLeftCorner, roomSize, _rooms[0]);
         //return;
+
+        RoomTags currentTags = RoomTags.None;
+
         for (int i = 0; i < _roomGrid._gridSize.x; i++)
         {
             for(int j = 0; j < _roomGrid._gridSize.y; j++)
             {
-                CopyRoomToPlace(new Vector2Int(i, j), roomSize, _rooms[0]);
+                currentTags = RoomTags.None;
+                currentTags = i%2 == 0 ? RoomTags.EntranceWest : RoomTags.EntranceNorth;
+
+                CopyRoomToPlace(new Vector2Int(i, j), roomSize, GetRoom(currentTags));
             }
         }
+    }
+
+
+    private RoomTemplate GetRoom(RoomTags roomTags)
+    {
+        List<RoomTemplate> possibleRooms = new List<RoomTemplate>();
+
+        for(int i = 0; i < _rooms.Count; i++)
+        {
+            if (_rooms[i].tags.HasFlag(roomTags))
+                possibleRooms.Add(_rooms[i]);
+        }
+
+        return possibleRooms[Random.Range(0, possibleRooms.Count)];
     }
 
 
