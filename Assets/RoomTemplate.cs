@@ -38,4 +38,6 @@ public enum RoomTags : int
     EntranceEast = 1 << 1,
     EntranceNorth = 1 << 2,
     EntranceSouth = 1 << 3,
+    MainExit = 1 << 4,
+    Optional = 1 << 5,
 }
