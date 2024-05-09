@@ -6,6 +6,11 @@ public class SceneLoadingDoor : Door
 {
     [SerializeField]
     private int targetLevelIndex = 1;
+    [SerializeField]
+    private string targetLevelName = "";
+
+    [SerializeField]
+    private bool useNameForLevelLoading = false;
 
     [SerializeField]
     private bool loadNextLevel = false;
@@ -31,7 +36,9 @@ public class SceneLoadingDoor : Door
 
         if (loadNextLevel)
             GameManager.instance.LoadNextLevel();
-        else
+        else if(!useNameForLevelLoading)
             GameManager.instance.LoadLevelAtIndex(targetLevelIndex);
+        else
+            GameManager.instance.LoadLevelByName(targetLevelName);
     }
 }

@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1077b1f14fdadce459afadf883826def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 2
+  tags: 34
   groundTiles: {fileID: 9179282981594149032}
   indestructibleTiles: {fileID: 5349260781471286632}
   bottomLeftCorner: {x: -9, y: -5}

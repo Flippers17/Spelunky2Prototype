@@ -24,6 +24,9 @@ public class LevelGenerator : MonoBehaviour
 
     [SerializeField]
     private bool _onlyNescessaryDrops;
+    
+    [SerializeField]
+    private bool _optionalRoomsNeedsOptionalTag;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +66,12 @@ public class LevelGenerator : MonoBehaviour
             if(i + 1 < roomPath.Count)
             {
                 currentTags |= GetTagsFromRoomDirection(roomPath[i], roomPath[i + 1]);
+                excludingTags |= RoomTags.MainExit;
                 Debug.DrawLine(_roomGrid.bottomLeftCorner + (Vector2)roomPath[i] * roomSize, _roomGrid.bottomLeftCorner + (Vector2)roomPath[i + 1] * roomSize, Color.red, 100);
+            }
+            else
+            {
+                currentTags |= RoomTags.MainExit;
             }
 
             if (_onlyNescessaryDrops)
@@ -85,7 +93,10 @@ public class LevelGenerator : MonoBehaviour
                 currentRoom = new Vector2Int(i, j);
                 if(!alreadyPlacedRooms.Contains(new Vector2Int(i, j)))
                 {
-                    CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.Optional, RoomTags.None));
+                    if(!_optionalRoomsNeedsOptionalTag)
+                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.None, RoomTags.MainExit));
+                    else
+                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.Optional, RoomTags.MainExit));
                 }
             }
         }
@@ -115,6 +126,12 @@ public class LevelGenerator : MonoBehaviour
 
     private RoomTemplate GetRoom(RoomTags roomTags, RoomTags excludeTags)
     {
+        /*if(roomTags == RoomTags.None)
+        {
+
+            return _rooms[Random.Range(0, _rooms.Count)];
+        }*/ 
+
         List<RoomTemplate> possibleRooms = new List<RoomTemplate>();
 
         for(int i = 0; i < _rooms.Count; i++)
@@ -247,6 +264,7 @@ public class LevelGenerator : MonoBehaviour
                 Vector3Int currentPos = new Vector3Int(x, y);
                 _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.groundTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
                 _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.indestructibleTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
+                
             }
         }
     }
