@@ -18,6 +18,11 @@ public class LevelGenerator : MonoBehaviour
     private List<RoomTemplate> _rooms = new List<RoomTemplate>();
 
     [SerializeField]
+    private TileBase _edgeTile;
+    [SerializeField]
+    private int _edgeThickness = 5;
+
+    [SerializeField]
     private bool _onlyNescessaryDrops;
 
     // Start is called before the first frame update
@@ -44,6 +49,8 @@ public class LevelGenerator : MonoBehaviour
         roomPath.Add(startRoom);
         CalculatePath(startRoom, ref roomPath);
         
+        HashSet<Vector2Int> alreadyPlacedRooms = new HashSet<Vector2Int>();
+
         for(int i = 0; i < roomPath.Count; i++)
         {
             currentTags = RoomTags.None;
@@ -63,11 +70,35 @@ public class LevelGenerator : MonoBehaviour
             {
                 if(!currentTags.HasFlag(RoomTags.EntranceSouth))
                     excludingTags |= RoomTags.EntranceSouth;
-                Debug.Log(roomPath[i] + " excludes: " + excludingTags);
+                //Debug.Log(roomPath[i] + " excludes: " + excludingTags);
             }
 
             CopyRoomToPlace(roomPath[i], roomSize, GetRoom(currentTags, excludingTags));
+            alreadyPlacedRooms.Add(roomPath[i]);
         }
+
+        Vector2Int currentRoom = Vector2Int.zero;
+        for(int i = 0; i < _roomGrid._gridSize.x; i++)
+        {
+            for(int j = 0; j < _roomGrid._gridSize.y; j++)
+            {
+                currentRoom = new Vector2Int(i, j);
+                if(!alreadyPlacedRooms.Contains(new Vector2Int(i, j)))
+                {
+                    CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.Optional, RoomTags.None));
+                }
+            }
+        }
+
+        Vector2Int currentLeftCorner = _roomGrid.bottomLeftCorner - new Vector2Int(_edgeThickness, _edgeThickness);
+        FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_edgeThickness - 1, _roomGrid._gridSize.y * roomSize.y + 2 * _edgeThickness - 1));
+        currentLeftCorner = _roomGrid.bottomLeftCorner + new Vector2Int(_roomGrid._gridSize.x * roomSize.x - 1, -_edgeThickness);
+        FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_edgeThickness - 1, _roomGrid._gridSize.y * roomSize.y + 2 * _edgeThickness - 1));
+        currentLeftCorner = _roomGrid.bottomLeftCorner + new Vector2Int(0, _roomGrid._gridSize.y * roomSize.y);
+        FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_roomGrid._gridSize.x * roomSize.x - 1, _edgeThickness - 1));
+        currentLeftCorner = _roomGrid.bottomLeftCorner - new Vector2Int(0, _edgeThickness);
+        FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_roomGrid._gridSize.x * roomSize.x - 1, _edgeThickness - 1));
+
 
         /*for (int i = 0; i < _roomGrid._gridSize.x; i++)
         {
@@ -109,6 +140,18 @@ public class LevelGenerator : MonoBehaviour
 
         return possibleRooms[Random.Range(0, possibleRooms.Count)];
     }
+
+    private void FillAreaWithTiles(Tilemap tilemap, TileBase tile, Vector2Int bottomLeft, Vector2Int topRight)
+    {
+        for(int x = bottomLeft.x; x <= topRight.x; x++)
+        {
+            for(int y = bottomLeft.y; y <= topRight.y; y++)
+            {
+                tilemap.SetTile(new Vector3Int(x, y), tile);
+            }
+        }
+    }
+
 
     private RoomTags GetTagsFromRoomDirection(Vector2Int currentRoom, Vector2Int neighbour)
     {
