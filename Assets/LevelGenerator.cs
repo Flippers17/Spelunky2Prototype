@@ -17,6 +17,9 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     private List<RoomTemplate> _rooms = new List<RoomTemplate>();
 
+    [SerializeField]
+    private bool _onlyNescessaryDrops;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +38,7 @@ public class LevelGenerator : MonoBehaviour
 
         Vector2Int startRoom = new Vector2Int(Random.Range(0, _roomGrid._gridSize.x), _roomGrid._gridSize.y - 1);
         RoomTags currentTags = RoomTags.None;
+        RoomTags excludingTags = RoomTags.None;
 
         List<Vector2Int> roomPath = new List<Vector2Int>();
         roomPath.Add(startRoom);
@@ -43,6 +47,7 @@ public class LevelGenerator : MonoBehaviour
         for(int i = 0; i < roomPath.Count; i++)
         {
             currentTags = RoomTags.None;
+            excludingTags = RoomTags.Optional;
 
             if(i - 1 >= 0)
             {
@@ -51,9 +56,17 @@ public class LevelGenerator : MonoBehaviour
             if(i + 1 < roomPath.Count)
             {
                 currentTags |= GetTagsFromRoomDirection(roomPath[i], roomPath[i + 1]);
+                Debug.DrawLine(_roomGrid.bottomLeftCorner + (Vector2)roomPath[i] * roomSize, _roomGrid.bottomLeftCorner + (Vector2)roomPath[i + 1] * roomSize, Color.red, 100);
             }
 
-            CopyRoomToPlace(roomPath[i], roomSize, GetRoom(currentTags, RoomTags.Optional));
+            if (_onlyNescessaryDrops)
+            {
+                if(!currentTags.HasFlag(RoomTags.EntranceSouth))
+                    excludingTags |= RoomTags.EntranceSouth;
+                Debug.Log(roomPath[i] + " excludes: " + excludingTags);
+            }
+
+            CopyRoomToPlace(roomPath[i], roomSize, GetRoom(currentTags, excludingTags));
         }
 
         /*for (int i = 0; i < _roomGrid._gridSize.x; i++)
@@ -75,7 +88,7 @@ public class LevelGenerator : MonoBehaviour
 
         for(int i = 0; i < _rooms.Count; i++)
         {
-            if (_rooms[i].tags.HasFlag(roomTags) && !_rooms[i].tags.HasFlag(excludeTags))
+            if (_rooms[i].tags.HasFlag(roomTags) && (_rooms[i].tags & excludeTags) == 0)
                 possibleRooms.Add(_rooms[i]);
         }
 
@@ -113,7 +126,7 @@ public class LevelGenerator : MonoBehaviour
         {
             tags |= RoomTags.EntranceSouth;
         }
-        else if(neighbour.y < currentRoom.y)
+        else if(currentRoom.y < neighbour.y)
         {
             tags |= RoomTags.EntranceNorth;
         }
@@ -190,6 +203,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 Vector3Int currentPos = new Vector3Int(x, y);
                 _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.groundTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
+                _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.indestructibleTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
             }
         }
     }

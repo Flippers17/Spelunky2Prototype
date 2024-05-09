@@ -9,16 +9,16 @@ public class RoomTemplate : MonoBehaviour
     public RoomTags tags;
 
     public Tilemap groundTiles;
-    public Tilemap indestructableTiles;
+    public Tilemap indestructibleTiles;
 
     public Vector2Int bottomLeftCorner = new Vector2Int(-9, -5);
 
 
     private void Start()
     {
-        var flags = RoomTags.EntranceWest | RoomTags.EntranceEast;
+        var flags = RoomTags.Optional | RoomTags.EntranceSouth;
 
-        Debug.Log(flags.HasFlag(tags));
+        Debug.Log(!flags.HasFlag(tags));
     }
 
     private void OnDrawGizmosSelected()

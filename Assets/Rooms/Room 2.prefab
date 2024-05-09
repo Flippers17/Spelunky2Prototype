@@ -207,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 4
   groundTiles: {fileID: 9179282981594149032}
-  indestructableTiles: {fileID: 5349260781471286632}
+  indestructibleTiles: {fileID: 5349260781471286632}
   bottomLeftCorner: {x: -9, y: -5}
 --- !u!1 &9179282981594149047
 GameObject:
