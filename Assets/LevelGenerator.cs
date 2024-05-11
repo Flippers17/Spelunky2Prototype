@@ -256,14 +256,29 @@ public class LevelGenerator : MonoBehaviour
 
     private void CopyRoomToPlace(Vector2Int roomCoordinates, Vector2Int roomSize, RoomTemplate template)
     {
+        TileBase currentTile;
 
         for(int x = 0; x < roomSize.x; x++)
         {
             for(int y = 0; y < roomSize.y; y++)
             {
                 Vector3Int currentPos = new Vector3Int(x, y);
-                _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.groundTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
-                _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), template.indestructibleTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner));
+                currentTile = template.groundTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner);
+                if (currentTile is ProbabilisticTile)
+                {
+                    ProbabilisticTile pt = (ProbabilisticTile)currentTile;
+                    currentTile = pt.GetTile();
+                }
+                _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
+
+
+                currentTile = template.indestructibleTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner);
+                if (currentTile is ProbabilisticTile)
+                {
+                    ProbabilisticTile pt = (ProbabilisticTile)currentTile;
+                    currentTile = pt.GetTile();
+                }
+                _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
                 
             }
         }

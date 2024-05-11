@@ -4,31 +4,40 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ProbabilisticTile : Tile
+public class ProbabilisticTile : RuleTile
 {
     [Space(15), SerializeField, Range(0f, 1f)]
     private float _probability = 1f;
 
     [SerializeField]
-    private RuleTile _tileToPlace;
+    private RuleTile tileToPlace;
+    //private RuleTile _instance;
 
-    [SerializeField]
-    private GameObject _objectToPlace;
 
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
+        //_instance = 
 
         if (Application.isEditor && !Application.isPlaying)
         {
-            base.GetTileData(position, tilemap, ref tileData);
+            //Do nothing
+        }
+        else if (Random.Range(0f, 1f) > _probability)
+        {
             return;
         }
-        if (Random.Range(0f, 1f) < _probability )
-            _tileToPlace.GetTileData(position, tilemap, ref tileData);
 
+        base.GetTileData(position, tilemap, ref tileData);
     }
 
+    public RuleTile GetTile()
+    {
+        if (Random.Range(0f, 1f) > _probability)
+            return null;
+
+        return tileToPlace;
+    }
 
 
 #if UNITY_EDITOR
