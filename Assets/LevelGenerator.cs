@@ -143,21 +143,7 @@ public class LevelGenerator : MonoBehaviour
         return possibleRooms[Random.Range(0, possibleRooms.Count)];
     }
     
-    private RoomTemplate GetRoomExclusivelyWithTags(RoomTags roomTags)
-    {
-        List<RoomTemplate> possibleRooms = new List<RoomTemplate>();
-
-        RoomTags otherTags = ~roomTags;
-
-        for(int i = 0; i < _rooms.Count; i++)
-        {
-            if (_rooms[i].tags.HasFlag(roomTags) && !_rooms[i].tags.HasFlag(otherTags))
-                possibleRooms.Add(_rooms[i]);
-        }
-
-        return possibleRooms[Random.Range(0, possibleRooms.Count)];
-    }
-
+    
     private void FillAreaWithTiles(Tilemap tilemap, TileBase tile, Vector2Int bottomLeft, Vector2Int topRight)
     {
         for(int x = bottomLeft.x; x <= topRight.x; x++)
