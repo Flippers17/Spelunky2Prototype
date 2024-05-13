@@ -81,7 +81,7 @@ public class LevelGenerator : MonoBehaviour
                 //Debug.Log(roomPath[i] + " excludes: " + excludingTags);
             }
 
-            CopyRoomToPlace(roomPath[i], roomSize, GetRoom(currentTags, excludingTags));
+            CopyRoomToPlace(roomPath[i], roomSize, GetRoom(currentTags, excludingTags), true);
             alreadyPlacedRooms.Add(roomPath[i]);
         }
 
@@ -94,9 +94,9 @@ public class LevelGenerator : MonoBehaviour
                 if(!alreadyPlacedRooms.Contains(new Vector2Int(i, j)))
                 {
                     if(!_optionalRoomsNeedsOptionalTag)
-                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.None, RoomTags.MainExit));
+                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.None, RoomTags.MainExit), true);
                     else
-                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.Optional, RoomTags.MainExit));
+                        CopyRoomToPlace(currentRoom, roomSize, GetRoom(RoomTags.Optional, RoomTags.MainExit), true);
                 }
             }
         }
@@ -240,9 +240,10 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    private void CopyRoomToPlace(Vector2Int roomCoordinates, Vector2Int roomSize, RoomTemplate template)
+    private void CopyRoomToPlace(Vector2Int roomCoordinates, Vector2Int roomSize, RoomTemplate template, bool useGridCoordinates)
     {
         TileBase currentTile;
+        List<(ObstacleTile, Vector2Int)> obstacleTiles = new List<(ObstacleTile, Vector2Int)>();
 
         for(int x = 0; x < roomSize.x; x++)
         {
@@ -254,8 +255,27 @@ public class LevelGenerator : MonoBehaviour
                 {
                     ProbabilisticTile pt = (ProbabilisticTile)currentTile;
                     currentTile = pt.GetTile();
+
+                    if(useGridCoordinates)
+                        _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
+                    else
+                        _groundTiles.SetTile(currentPos + (Vector3Int)roomCoordinates, currentTile);
                 }
-                _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
+                else if(currentTile is ObstacleTile)
+                {
+                    ObstacleTile ot = (ObstacleTile)currentTile;
+                    obstacleTiles.Add((ot, (Vector2Int)currentPos + _roomGrid.GetRoomCorner(roomCoordinates)));
+                    
+                    //CopyObstacleTemplateToPlace(currentPos, ot.GetTemplate());
+                }
+                else
+                {
+                    if (useGridCoordinates)
+                        _groundTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
+                    else
+                        _groundTiles.SetTile(currentPos + (Vector3Int)roomCoordinates, currentTile);
+                }
+                    
 
 
                 currentTile = template.indestructibleTiles.GetTile(currentPos + (Vector3Int)template.bottomLeftCorner);
@@ -264,9 +284,30 @@ public class LevelGenerator : MonoBehaviour
                     ProbabilisticTile pt = (ProbabilisticTile)currentTile;
                     currentTile = pt.GetTile();
                 }
-                _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
-                
+                if (useGridCoordinates)
+                    _indestructibleTiles.SetTile(currentPos + (Vector3Int)_roomGrid.GetRoomCorner(roomCoordinates), currentTile);
+                else
+                    _indestructibleTiles.SetTile(currentPos + (Vector3Int)roomCoordinates, currentTile);
+
             }
         }
+
+        for(int i = 0; i < obstacleTiles.Count; i++)
+        {
+            CopyRoomToPlace(obstacleTiles[i].Item2, new Vector2Int(5, 3), obstacleTiles[i].Item1.GetTemplate(), false);
+        }
     }
+
+    /*private void CopyObstacleTemplateToPlace(Vector3Int bottomLeftCorner, RoomTemplate template)
+    {
+        TileBase currentTile;
+        for(int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                Vector3Int currentPos = new Vector3Int(x, y);
+                currentTile
+            }
+        }
+    }*/
 }

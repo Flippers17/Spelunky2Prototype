@@ -16,7 +16,7 @@ public class ProbabilisticTile : RuleTile
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
         base.RefreshTile(position, tilemap);
-        tilemap.GetComponent<Tilemap>().SetTileFlags(position, TileFlags.None);
+        //tilemap.GetComponent<Tilemap>().SetTileFlags(position, TileFlags.None);
         //tilemap.GetComponent<Tilemap>().SetColor(position, Color.red);
     }
 
@@ -30,7 +30,7 @@ public class ProbabilisticTile : RuleTile
 
         
         
-        tileData.color = Color.red;
+        //tileData.color = Color.red;
         base.GetTileData(position, tilemap, ref tileData);
         
         //tilemap.GetComponent<Tilemap>().SetTile(position, null);
