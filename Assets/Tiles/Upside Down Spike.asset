@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38cf8834ab6e17442af1c6c7024cb76c, type: 3}
-  m_Name: ProbabilisticSpike
+  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+  m_Name: Upside Down Spike
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: ee5a085a23c8c114a95a0ce7fb002c06, type: 3}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultSprite: {fileID: 21300000, guid: be2c140117f33f245b347d108be4e8d8, type: 3}
+  m_DefaultGameObject: {fileID: 1748463307566875053, guid: 1179cabe97a22044da1dfdea64ab9061, type: 3}
   m_DefaultColliderType: 0
   m_TilingRules: []
-  _probability: 0.33
-  tileToPlace: {fileID: 11400000, guid: f7c2558d342a9094bb766d3335cb3401, type: 2}
