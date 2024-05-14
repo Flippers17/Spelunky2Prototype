@@ -130,8 +130,11 @@ MonoBehaviour:
   _scoreGain: 100
   facingDirection: 1
   velocity: {x: 0, y: 0}
+  idle:
+    _idleTime: 2
   walking:
     _speed: 3
+    _walkTime: 3
 --- !u!61 &8096809429634894566
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -257,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 8096809431574773842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.08, z: 0}
-  m_LocalScale: {x: 1.020625, y: 0.55, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8096809429634894562}
