@@ -28,7 +28,10 @@ public class ClimbLadderPlayerState : PlayerState
             _player.TransitionToState(_player.walking);
 
         if (_input.RememberJumpInput())
+        {
             TransitionToJump();
+            return;
+        }
 
         if (_onLadder == false)
         {
@@ -80,6 +83,7 @@ public class ClimbLadderPlayerState : PlayerState
 
     private void TransitionToJump()
     {
+        _player.isGrounded = true;
         _player.TransitionToState(_player.jump);
     }
 

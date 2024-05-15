@@ -17,4 +17,4 @@ MonoBehaviour:
   m_DefaultColliderType: 0
   m_TilingRules: []
   _probability: 0.33
-  tileToPlace: {fileID: 11400000, guid: f7c2558d342a9094bb766d3335cb3401, type: 2}
+  tileToPlace: {fileID: 11400000, guid: 43b22528b026ded48b2f37d9c40bf16a, type: 2}

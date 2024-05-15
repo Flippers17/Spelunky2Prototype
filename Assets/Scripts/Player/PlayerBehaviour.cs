@@ -158,6 +158,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     void Update()
     {
+        Debug.Log(anim.speed);
         if(currentState != null)
             currentState.UpdateState();
         
@@ -204,7 +205,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     public void TakeDamage(int damage, Vector2 knockback)
     {
         //Transition to Take damage state
-        if (currentState == takeDamage || timeSinceDamaged < _invincibillityTime || currentState == dead)
+        if (currentState == takeDamage || !CanBeHit() || currentState == dead)
             return;
 
         _health.TakeDamage(damage);

@@ -171,6 +171,8 @@ MonoBehaviour:
     m_Bits: 640
   possibleSpawns:
   - objectToDrop: {fileID: 1955941124046878972, guid: aa2b1d68aa578894ca96d5be956e33f3, type: 3}
+    dropWeight: 5
+  - objectToDrop: {fileID: 1955941124046878972, guid: ec72927de6c83704c8f15047e75d297e, type: 3}
     dropWeight: 65
   - objectToDrop: {fileID: 8096809429634894567, guid: d070dc3dff401d8479a2200211ff735f, type: 3}
     dropWeight: 15

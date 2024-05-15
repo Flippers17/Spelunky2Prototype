@@ -18,6 +18,9 @@ public class LevelGenerator : MonoBehaviour
     private List<RoomTemplate> _rooms = new List<RoomTemplate>();
 
     [SerializeField]
+    private List<RuleTile> _treassure = new List<RuleTile>();
+
+    [SerializeField]
     private TileBase _edgeTile;
     [SerializeField]
     private int _edgeThickness = 5;
@@ -111,6 +114,8 @@ public class LevelGenerator : MonoBehaviour
         FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_roomGrid._gridSize.x * roomSize.x - 1, _edgeThickness - 1));
 
 
+        GenerateTreassure(roomSize);
+
         /*for (int i = 0; i < _roomGrid._gridSize.x; i++)
         {
             for(int j = 0; j < _roomGrid._gridSize.y; j++)
@@ -126,12 +131,6 @@ public class LevelGenerator : MonoBehaviour
 
     private RoomTemplate GetRoom(RoomTags roomTags, RoomTags excludeTags)
     {
-        /*if(roomTags == RoomTags.None)
-        {
-
-            return _rooms[Random.Range(0, _rooms.Count)];
-        }*/ 
-
         List<RoomTemplate> possibleRooms = new List<RoomTemplate>();
 
         for(int i = 0; i < _rooms.Count; i++)
@@ -151,6 +150,27 @@ public class LevelGenerator : MonoBehaviour
             for(int y = bottomLeft.y; y <= topRight.y; y++)
             {
                 tilemap.SetTile(new Vector3Int(x, y), tile);
+            }
+        }
+    }
+
+    private void GenerateTreassure(Vector2Int roomSize)
+    {
+        if (_treassure.Count == 0)
+            return;
+
+        for (int x = _roomGrid.bottomLeftCorner.x; x < _roomGrid.bottomLeftCorner.x + _roomGrid._gridSize.x * roomSize.x; x++)
+        {
+            for (int y = _roomGrid.bottomLeftCorner.y; y < _roomGrid.bottomLeftCorner.y + _roomGrid._gridSize.y * roomSize.y; y++)
+            {
+                Vector3Int currentPos = new Vector3Int(x, y);
+                if (!_groundTiles.HasTile(currentPos) && !_indestructibleTiles.HasTile(currentPos))
+                {
+                    if (Random.Range(0, 100) < 5)
+                    {
+                        _indestructibleTiles.SetTile(currentPos, _treassure[0]);
+                    }
+                }
             }
         }
     }
@@ -298,16 +318,4 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    /*private void CopyObstacleTemplateToPlace(Vector3Int bottomLeftCorner, RoomTemplate template)
-    {
-        TileBase currentTile;
-        for(int x = 0; x < 5; x++)
-        {
-            for (int y = 0; y < 3; y++)
-            {
-                Vector3Int currentPos = new Vector3Int(x, y);
-                currentTile
-            }
-        }
-    }*/
 }

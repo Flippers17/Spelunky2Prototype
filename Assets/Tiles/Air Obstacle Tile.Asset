@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca4cdf767307e0478dba62bd5cfffb1, type: 3}
   m_Name: Air Obstacle Tile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 6ffa257b37b50ab49aae93acb6bf5649, type: 3}
+  m_DefaultSprite: {fileID: -218178093, guid: 6978b82d6280fb94e9b7a5303856543c, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
   templates:
-  - {fileID: 9179282980225319396, guid: 417c8d602660b5742b9c890f32af36fc, type: 3}
-  - {fileID: 9179282980225319396, guid: ee1bf7828682a8a4496320927a5cffd2, type: 3}
-  - {fileID: 9179282980225319396, guid: 476402737e4eef148b22bce2f523f3d1, type: 3}
-  - {fileID: 9179282980225319396, guid: 6c4462d7d034b9d49951e3748adfa435, type: 3}
-  - {fileID: 9179282980225319396, guid: 02a16ae09c6498142b4dd854952fcf6f, type: 3}
+  - {fileID: 9179282980225319396, guid: 883e4590ddbdba442919b8b2f41d5ce8, type: 3}
+  - {fileID: 9179282980225319396, guid: 97e9adbabe43e4d44a27739833cca613, type: 3}
+  - {fileID: 9179282980225319396, guid: d82924b063114d34e9d0bb062e089b05, type: 3}
+  - {fileID: 9179282980225319396, guid: ec32aaad0d32bd74fa1556c7e1de1495, type: 3}
+  - {fileID: 9179282980225319396, guid: 89a0ff33ed33f5246bb1d83c5bfaf0f2, type: 3}
+  - {fileID: 9179282980225319396, guid: a6533138aadbd1e4a9db52c59de6cdea, type: 3}
+  - {fileID: 9179282980225319396, guid: 779b3f6898b705b4bbffa1561ba92114, type: 3}
+  - {fileID: 9179282980225319396, guid: a5b4d2800907521419fc0d924db316b5, type: 3}
+  - {fileID: 9179282980225319396, guid: 4a4303eb4bf27fa4db41e63704c7cfe3, type: 3}
+  - {fileID: 9179282980225319396, guid: a47473f36002da243a0ea57358bac99d, type: 3}
