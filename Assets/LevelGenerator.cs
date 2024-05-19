@@ -116,16 +116,6 @@ public class LevelGenerator : MonoBehaviour
 
         GenerateTreassure(roomSize);
 
-        /*for (int i = 0; i < _roomGrid._gridSize.x; i++)
-        {
-            for(int j = 0; j < _roomGrid._gridSize.y; j++)
-            {
-                currentTags = RoomTags.None;
-                currentTags = i%2 == 0 ? RoomTags.EntranceWest : RoomTags.EntranceNorth;
-
-                CopyRoomToPlace(new Vector2Int(i, j), roomSize, GetRoom(currentTags));
-            }
-        }*/
     }
 
 
