@@ -92,36 +92,11 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
             if(!TryGetComponent(out anim))
                 Debug.LogWarning("PlayerBehaviour is missing Animator reference", this);
         
-        idle.OnValidate(this);
-        walking.OnValidate(this);
-        running.OnValidate(this);
-        crouching.OnValidate(this);
-        jump.OnValidate(this);
-        ledgeGrab.OnValidate(this);
-        climbDown.OnValidate(this);
-        climbUp.OnValidate(this);
-        takeDamage.OnValidate(this);
-        attack.OnValidate(this);
-        enterDoor.OnValidate(this);
-        dead.OnValidate(this);
-        climbLadder.OnValidate(this);
     }
 
     private void Awake()
     {
-        idle.Awake();
-        walking.Awake();
-        running.Awake();
-        crouching.Awake();
-        jump.Awake();
-        ledgeGrab.Awake();
-        climbDown.Awake();
-        climbUp.Awake();
-        takeDamage.Awake();
-        attack.Awake();
-        enterDoor.Awake();
-        dead.Awake();
-        climbLadder.Awake();
+        
     }
 
     void Start()
@@ -148,12 +123,28 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     {
         _health.OnDie += Die;
         EnterDoorEvent.OnEnterDoor += OnEnterDoor;
+
+        idle.Awake(this);
+        walking.Awake(this);
+        running.Awake(this);
+        crouching.Awake(this);
+        jump.Awake(this);
+        ledgeGrab.Awake(this);
+        climbDown.Awake(this);
+        climbUp.Awake(this);
+        takeDamage.Awake(this);
+        attack.Awake(this);
+        enterDoor.Awake(this);
+        dead.Awake(this);
+        climbLadder.Awake(this);
     }
 
     private void OnDisable()
     {
         _health.OnDie -= Die;
         EnterDoorEvent.OnEnterDoor -= OnEnterDoor;
+
+        currentState.Exit();
     }
 
     void Update()

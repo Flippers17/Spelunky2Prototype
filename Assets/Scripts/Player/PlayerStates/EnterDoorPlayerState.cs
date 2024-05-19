@@ -6,13 +6,18 @@ using UnityEngine;
 [System.Serializable]
 public class EnterDoorPlayerState : PlayerState
 {
-    [SerializeField, HideInInspector]
+    //[SerializeField, HideInInspector]
     private EnterDoorEventPort EnterDoorEvent;
     [SerializeField] private float waitTime = 1f;
     private float timer = 0;
     
-    public override void Awake(){}
-    public override void Start(){}
+    public override void Awake(PlayerBehaviour player)
+    {
+        base.Awake(player);
+        EnterDoorEvent = player.EnterDoorEvent;
+    }
+
+    //public override void Start(){}
    
     public override void Enter()
     {
@@ -40,9 +45,4 @@ public class EnterDoorPlayerState : PlayerState
         EnterDoorEvent.InvokeOnExitDoor();
     }
 
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-        EnterDoorEvent = player.EnterDoorEvent;
-    }
 }

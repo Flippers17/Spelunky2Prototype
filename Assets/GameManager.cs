@@ -75,4 +75,9 @@ public class GameManager : MonoBehaviour
         playerHealthSO.ChangeHealth(0);
         scoreEvent.UpdateScore(score);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

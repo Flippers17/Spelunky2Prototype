@@ -8,8 +8,8 @@ public class ClimbDownLedgePlayerState : PlayerState
     [SerializeField] private float _speed = 4f;
 
 
-    public override void Awake() { }
-    public override void Start() { }
+    //public override void Awake() { }
+    //public override void Start() { }
 
     public override void Enter()
     {

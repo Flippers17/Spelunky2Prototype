@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 public class LevelGenerator : MonoBehaviour
@@ -30,6 +31,14 @@ public class LevelGenerator : MonoBehaviour
     
     [SerializeField]
     private bool _optionalRoomsNeedsOptionalTag;
+
+
+    public static UnityAction OnLevelGenerated;
+
+    public static Vector2Int PlayerStartPos
+    {
+        get; private set;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -113,9 +122,30 @@ public class LevelGenerator : MonoBehaviour
         currentLeftCorner = _roomGrid.bottomLeftCorner - new Vector2Int(0, _edgeThickness);
         FillAreaWithTiles(_indestructibleTiles, _edgeTile, currentLeftCorner, currentLeftCorner + new Vector2Int(_roomGrid._gridSize.x * roomSize.x - 1, _edgeThickness - 1));
 
-
+        PlayerStartPos = FindPlayerStartPos(startRoom, roomSize);
         GenerateTreassure(roomSize);
 
+        Debug.Log(PlayerStartPos);
+        OnLevelGenerated?.Invoke();
+    }
+
+    public Vector2Int FindPlayerStartPos(Vector2Int startRoomPos, Vector2Int roomSize)
+    {
+        Vector2Int startCorner = _roomGrid.bottomLeftCorner + new Vector2Int(roomSize.x * startRoomPos.x, roomSize.y * startRoomPos.y);
+        Vector2Int current = startCorner;
+
+        for(int x = 0; x < roomSize.x; x++)
+        {
+            for(int y = 0; y < roomSize.y; y++)
+            {
+                current = startCorner + new Vector2Int(x, y);
+                
+                if(!_groundTiles.HasTile((Vector3Int)current) && !_indestructibleTiles.HasTile((Vector3Int)current))
+                    return current;
+            }
+        }
+
+        return startCorner;
     }
 
 

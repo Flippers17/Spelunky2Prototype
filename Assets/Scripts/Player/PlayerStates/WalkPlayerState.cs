@@ -9,8 +9,8 @@ public class WalkPlayerState : PlayerState
 
     private float _walkInput = 0;
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
    
     public override void Enter()
     {
@@ -114,9 +114,5 @@ public class WalkPlayerState : PlayerState
         _player.TransitionToState(_player.attack);
     }
 
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
     
 }

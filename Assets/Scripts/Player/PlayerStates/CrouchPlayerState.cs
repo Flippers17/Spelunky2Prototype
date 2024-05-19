@@ -11,8 +11,8 @@ public class CrouchPlayerState : PlayerState
 
     private float _walkInput = 0;
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
    
     public override void Enter()
     {
@@ -133,9 +133,5 @@ public class CrouchPlayerState : PlayerState
         _player.currentHeldItem = currentItem;
     }
 
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
     
 }

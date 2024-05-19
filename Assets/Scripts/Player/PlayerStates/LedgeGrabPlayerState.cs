@@ -6,8 +6,8 @@ using UnityEngine;
 public class LedgeGrabPlayerState : PlayerState
 {
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
    
     public override void Enter()
     {
@@ -49,8 +49,4 @@ public class LedgeGrabPlayerState : PlayerState
         _player.TransitionToState(_player.jump);
     }
 
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
 }

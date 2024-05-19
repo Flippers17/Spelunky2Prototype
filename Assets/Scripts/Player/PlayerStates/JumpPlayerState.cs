@@ -9,8 +9,8 @@ public class JumpPlayerState : PlayerState
     [SerializeField] private float acionDelay = 0.1f;
     private float _timeSinceJumped = 0f;
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
 
     public override void Enter()
     {
@@ -40,10 +40,5 @@ public class JumpPlayerState : PlayerState
     public override void Exit()
     {
         Debug.Log(_player.velocity.y);
-    }
-
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
     }
 }

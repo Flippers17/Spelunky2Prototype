@@ -167,4 +167,6 @@ MonoBehaviour:
   interpolatePosition: 1
   _lerpSpeedX: 0.5
   _lerpSpeedY: 0.02
+  _bottomLeftBoundary: {x: -10, y: -26}
+  _topRightBoundary: {x: 46, y: 6}
   EnterDoorEvent: {fileID: 11400000, guid: 08aee23ca26e0ab4b8777f4e16a07c27, type: 2}

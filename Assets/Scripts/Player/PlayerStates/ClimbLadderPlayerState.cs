@@ -10,8 +10,8 @@ public class ClimbLadderPlayerState : PlayerState
 
     private bool _onLadder = true;
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
 
     public override void Enter()
     {
@@ -25,7 +25,10 @@ public class ClimbLadderPlayerState : PlayerState
     public override void UpdateState()
     {
         if(_input.GetHorizontalMoveInput() != 0)
+        {
             _player.TransitionToState(_player.walking);
+            return;
+        }
 
         if (_input.RememberJumpInput())
         {

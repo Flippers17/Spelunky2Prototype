@@ -6,8 +6,8 @@ using UnityEngine;
 public class IdlePlayerState : PlayerState
 {
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
 
     public override void Enter()
     {
@@ -88,8 +88,4 @@ public class IdlePlayerState : PlayerState
         _player.TransitionToState(_player.attack);
     }
     
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
 }

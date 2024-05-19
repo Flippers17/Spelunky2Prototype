@@ -50,7 +50,7 @@ public class FollowTarget : MonoBehaviour
 
         if (interpolatePosition)
         {
-            targetPos.x = transform.position.x * (1- _lerpSpeedX) + targetPos.x * _lerpSpeedX;
+            targetPos.x = transform.position.x * (1 - _lerpSpeedX) + targetPos.x * _lerpSpeedX;
             targetPos.y = transform.position.y * (1 - _lerpSpeedY) + targetPos.y * _lerpSpeedY;
         }
         targetPos.z = -10;

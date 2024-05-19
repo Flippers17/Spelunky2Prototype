@@ -9,8 +9,8 @@ public class TakeDamagePlayerState : PlayerState
     private float stunnedTime = 1f;
     private float timer = 0f;
 
-    public override void Awake() { }
-    public override void Start() { }
+    //public override void Awake() { }
+    //public override void Start() { }
 
     public override void Enter()
     {
@@ -43,9 +43,4 @@ public class TakeDamagePlayerState : PlayerState
         _player.timeSinceDamaged = 0;
     }
 
-
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
 }

@@ -11,8 +11,8 @@ public class AttackPlayerState : PlayerState
     [SerializeField]
     private Vector2 _throwingVelocity = new Vector2(6, 2);
     
-    public override void Awake(){}
-    public override void Start(){}
+    //public override void Awake(){}
+    //public override void Start(){}
 
     public override void Enter()
     {
@@ -55,8 +55,4 @@ public class AttackPlayerState : PlayerState
         _player.DeactivateWhipHurtbox();
     }
 
-    public override void OnValidate(PlayerBehaviour player)
-    {
-        base.OnValidate(player);
-    }
 }
