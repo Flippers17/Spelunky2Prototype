@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public PlayerHealthSO playerHealthSO;
 
     private int currentLevelIndex = 2;
+    [SerializeField]
+    private int maxLevels = 16;
 
     private void Awake()
     {
@@ -47,7 +49,11 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevelIndex++;
-        SceneManager.LoadScene(currentLevelIndex);
+
+        if(currentLevelIndex < maxLevels)
+            SceneManager.LoadScene(2);
+        else
+            SceneManager.LoadScene(3);
     }
     
     public void LoadLevelAtIndex(int index)
@@ -66,7 +72,7 @@ public class GameManager : MonoBehaviour
         playerHealthSO.ResetHealth();
         score = 0;
         scoreEvent.UpdateScore(score);
-        currentLevelIndex = 2;
+        currentLevelIndex = 1;
         SceneManager.LoadScene(2);
     }
 
