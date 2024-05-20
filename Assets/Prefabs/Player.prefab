@@ -143,73 +143,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a985a1148949f0c4089ec80065d4d579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idle:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
   walking:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _speed: 4
   running:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _speed: 8
     _acceleration: 9
   crouching:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _speed: 2
     _defaultCollider: {fileID: 6148496320042662289}
     _crouchCollider: {fileID: 6148496320042662280}
   jump:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     jumpHeight: 1
     acionDelay: 0.1
-  ledgeGrab:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
   climbDown:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _speed: 4
   climbUp:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _speed: 4
   takeDamage:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     stunnedTime: 0.3
   attack:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     acionDelay: 0.4
     _throwingVelocity: {x: 12, y: 5}
   enterDoor:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
-    EnterDoorEvent: {fileID: 11400000, guid: 08aee23ca26e0ab4b8777f4e16a07c27, type: 2}
     waitTime: 1
-  dead:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
   climbLadder:
-    _player: {fileID: 6148496320042662291}
-    _input: {fileID: 6148496320042662286}
-    _anim: {fileID: 6148496320042662282}
     _climbSpeed: 4
   _rb: {fileID: 6148496320042662290}
   anim: {fileID: 6148496320042662282}
