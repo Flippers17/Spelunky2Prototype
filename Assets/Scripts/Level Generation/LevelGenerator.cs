@@ -46,11 +46,6 @@ public class LevelGenerator : MonoBehaviour
         GenerateLevel();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void GenerateLevel()
     {
@@ -79,7 +74,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 currentTags |= GetTagsFromRoomDirection(roomPath[i], roomPath[i + 1]);
                 excludingTags |= RoomTags.MainExit;
-                Debug.DrawLine(_roomGrid.bottomLeftCorner + (Vector2)roomPath[i] * roomSize, _roomGrid.bottomLeftCorner + (Vector2)roomPath[i + 1] * roomSize, Color.red, 100);
+                Debug.DrawLine(_roomGrid.bottomLeftCorner + (Vector2)roomPath[i] * roomSize + (roomSize/2), _roomGrid.bottomLeftCorner + (Vector2)roomPath[i + 1] * roomSize + (roomSize / 2), Color.red, 100);
             }
             else
             {
