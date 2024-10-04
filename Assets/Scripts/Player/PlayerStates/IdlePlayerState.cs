@@ -20,12 +20,12 @@ public class IdlePlayerState : PlayerState
         _anim.SetBool("Jumping", !_player.isGrounded);
         
         if(_input.GetHorizontalMoveInput() != 0)
-            _player.TransitionToState(_player.walking);
+            _stateMachine.TransitionToState(_stateMachine.walking);
 
         if (_input.RememberJumpInput())
             TransitionToJump();
         else if(_input.HoldingCrouch() && _player.isGrounded)
-            _player.TransitionToState(_player.crouching);
+            _stateMachine.TransitionToState(_stateMachine.crouching);
     }
 
     public override void FixedUpdateState()
@@ -41,7 +41,7 @@ public class IdlePlayerState : PlayerState
                     if (enemy.TryGetComponent(out EnemyBehaviour eBehaviour))
                     {
                         eBehaviour.TakeDamage(1, Vector2.zero);
-                        _player.TransitionToState(_player.jump);
+                        _stateMachine.TransitionToState(_stateMachine.jump);
                     }
             }
         }
@@ -51,7 +51,7 @@ public class IdlePlayerState : PlayerState
         if (_input.HoldingClimb() && LadderCheck(out Transform ladder))
         {
             _player.transform.position = ladder.position;
-            _player.TransitionToState(_player.climbLadder);
+            _stateMachine.TransitionToState(_stateMachine.climbLadder);
         }
     }
 
@@ -80,12 +80,12 @@ public class IdlePlayerState : PlayerState
         if (!_player.WithinCoyoteTime())
             return;
 
-        _player.TransitionToState(_player.jump);
+        _stateMachine.TransitionToState(_stateMachine.jump);
     }
 
     private void TransitionToAttack()
     {
-        _player.TransitionToState(_player.attack);
+        _stateMachine.TransitionToState(_stateMachine.attack);
     }
     
 }

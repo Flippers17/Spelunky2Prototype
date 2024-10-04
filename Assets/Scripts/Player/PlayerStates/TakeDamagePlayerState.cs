@@ -26,7 +26,7 @@ public class TakeDamagePlayerState : PlayerState
             timer += Time.deltaTime;
 
         if (timer > stunnedTime && _player.isGrounded)
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
     }
 
     public override void FixedUpdateState()

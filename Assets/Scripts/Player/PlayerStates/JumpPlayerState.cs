@@ -16,7 +16,6 @@ public class JumpPlayerState : PlayerState
     {
         _timeSinceJumped = 0;
         _player.velocity.y = Mathf.Sqrt(2f * jumpHeight * _player.gravity);
-        Debug.Log(_player.velocity.y);
         _anim.SetBool("Jumping", true);
     }
 
@@ -25,11 +24,11 @@ public class JumpPlayerState : PlayerState
         if (_timeSinceJumped < acionDelay)
             _timeSinceJumped += Time.deltaTime;
         else if (_input.GetHorizontalMoveInput() == 0)
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
         else if (_input.HoldingRun())
-            _player.TransitionToState(_player.running);
+            _stateMachine.TransitionToState(_stateMachine.running);
         else
-            _player.TransitionToState(_player.walking);
+            _stateMachine.TransitionToState(_stateMachine.walking);
     }
 
     public override void FixedUpdateState()
@@ -39,6 +38,6 @@ public class JumpPlayerState : PlayerState
 
     public override void Exit()
     {
-        Debug.Log(_player.velocity.y);
+
     }
 }

@@ -25,11 +25,11 @@ public class LedgeGrabPlayerState : PlayerState
     private void CheckTransitions()
     {
         if (_input.HoldingCrouch() && _input.HoldingJump())
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
         else if (_input.RememberJumpInput())
             TransitionToJump();
         else if (_input.HoldingClimb())
-            _player.TransitionToState(_player.climbUp);
+            _stateMachine.TransitionToState(_stateMachine.climbUp);
     }
 
 
@@ -46,7 +46,7 @@ public class LedgeGrabPlayerState : PlayerState
 
     private void TransitionToJump()
     {
-        _player.TransitionToState(_player.jump);
+        _stateMachine.TransitionToState(_stateMachine.jump);
     }
 
 }

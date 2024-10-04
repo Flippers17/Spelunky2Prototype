@@ -8,14 +8,16 @@ public abstract class PlayerState
 {
     //[SerializeField, HideInInspector]
     protected PlayerBehaviour _player;
+    protected PlayerStateMachine _stateMachine;
     //[SerializeField, HideInInspector]
     protected PlayerInputHandler _input;
     //[SerializeField, HideInInspector]
     protected Animator _anim;
     
-    public virtual void Awake(PlayerBehaviour player)
+    public virtual void Awake(PlayerBehaviour player, PlayerStateMachine stateMachine)
     {
         _player = player;
+        _stateMachine = stateMachine;
         _input = player.input;
         _anim = player.anim;
     }

@@ -17,21 +17,7 @@ public interface IDamageable
 
 public class PlayerBehaviour : MonoBehaviour , IDamageable
 {
-    private PlayerState currentState;
-
-    public IdlePlayerState idle = new IdlePlayerState();
-    public WalkPlayerState walking = new WalkPlayerState();
-    public RunningPlayerState running = new RunningPlayerState();
-    public CrouchPlayerState crouching = new CrouchPlayerState();
-    public JumpPlayerState jump = new JumpPlayerState();
-    public LedgeGrabPlayerState ledgeGrab = new LedgeGrabPlayerState();
-    public ClimbDownLedgePlayerState climbDown = new ClimbDownLedgePlayerState();
-    public ClimbUpLedgePlayerState climbUp = new ClimbUpLedgePlayerState();
-    public TakeDamagePlayerState takeDamage = new TakeDamagePlayerState();
-    public AttackPlayerState attack = new AttackPlayerState();
-    public EnterDoorPlayerState enterDoor = new EnterDoorPlayerState();
-    public DeadPlayerState dead = new DeadPlayerState();
-    public ClimbLadderPlayerState climbLadder = new ClimbLadderPlayerState();
+    public PlayerStateMachine stateMachine;
     
     [SerializeField, Space(10)]
     private Rigidbody2D _rb;
@@ -96,47 +82,18 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     private void Awake()
     {
-        
+        stateMachine.Awake(this);
     }
 
     void Start()
     {
-        idle.Start();
-        walking.Start();
-        running.Start();
-        crouching.Start();
-        jump.Start();
-        ledgeGrab.Start();
-        climbDown.Start();
-        climbUp.Start();
-        takeDamage.Start();
-        attack.Start();
-        enterDoor.Start();
-        dead.Start();
-        climbLadder.Start();
-        
-        currentState = idle;
-        currentState.Enter();
+        stateMachine.Start();
     }
 
     private void OnEnable()
     {
         _health.OnDie += Die;
         EnterDoorEvent.OnEnterDoor += OnEnterDoor;
-
-        idle.Awake(this);
-        walking.Awake(this);
-        running.Awake(this);
-        crouching.Awake(this);
-        jump.Awake(this);
-        ledgeGrab.Awake(this);
-        climbDown.Awake(this);
-        climbUp.Awake(this);
-        takeDamage.Awake(this);
-        attack.Awake(this);
-        enterDoor.Awake(this);
-        dead.Awake(this);
-        climbLadder.Awake(this);
     }
 
     private void OnDisable()
@@ -144,14 +101,12 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         _health.OnDie -= Die;
         EnterDoorEvent.OnEnterDoor -= OnEnterDoor;
 
-        currentState.Exit();
+        stateMachine.OnDisable();
     }
 
     void Update()
     {
-        Debug.Log(anim.speed);
-        if(currentState != null)
-            currentState.UpdateState();
+        stateMachine.OnUpdate();
         
         if (facingDirection == -1)
         {
@@ -165,7 +120,7 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
         }
         
 
-        if (currentState != takeDamage && timeSinceDamaged < _invincibillityTime)
+        if (stateMachine.currentState != stateMachine.takeDamage && timeSinceDamaged < _invincibillityTime)
         {
             anim.SetBool("Flickering", true);
             timeSinceDamaged += Time.deltaTime;
@@ -177,41 +132,32 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
     private void FixedUpdate()
     {
         isGrounded = IsGrounded();
-
-        if(currentState != null)
-            currentState.FixedUpdateState();
+        stateMachine.OnFixedUpdate();
         
         _rb.velocity = velocity;
         
     }
     
 
-    public void TransitionToState(PlayerState targetState)
-    {
-        currentState.Exit();
-        currentState = targetState;
-        currentState.Enter();
-    }
+    
 
     public void TakeDamage(int damage, Vector2 knockback)
     {
         //Transition to Take damage state
-        if (currentState == takeDamage || !CanBeHit() || currentState == dead)
+        if (!CanBeHit())
             return;
 
         _health.TakeDamage(damage);
 
-        if (currentState != dead)
-            TransitionToState(takeDamage);
+        if (stateMachine.currentState != stateMachine.dead)
+            stateMachine.TransitionToState(stateMachine.takeDamage);
         velocity = knockback;
-        Debug.Log("Took damage");
     }
 
     public void Die()
     {
         //Transition to Dead state
-        TransitionToState(dead);
-        Debug.Log("Player Died");
+        stateMachine.TransitionToState(stateMachine.dead);
     }
 
 
@@ -258,13 +204,13 @@ public class PlayerBehaviour : MonoBehaviour , IDamageable
 
     public bool CanBeHit()
     {
-        return !(timeSinceDamaged < _invincibillityTime);
+        return !(timeSinceDamaged < _invincibillityTime || stateMachine.currentState == stateMachine.takeDamage || stateMachine.currentState == stateMachine.dead);
     }
 
     private void OnEnterDoor()
     {
-        if(currentState != enterDoor)
-            TransitionToState(enterDoor);
+        if(stateMachine.currentState != stateMachine.enterDoor)
+            stateMachine.TransitionToState(stateMachine.enterDoor);
     }
     
     private void OnDrawGizmos()

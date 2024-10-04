@@ -36,7 +36,7 @@ public class RunningPlayerState : PlayerState
                 _player.velocity.x = targetVelocity;
         }
         else
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
 
     }
 
@@ -44,11 +44,11 @@ public class RunningPlayerState : PlayerState
     private void CheckTransitions()
     {
         if(LedgeGrabDetection())
-            _player.TransitionToState(_player.ledgeGrab);
+            _stateMachine.TransitionToState(_stateMachine.ledgeGrab);
         if (_input.RememberJumpInput())
             TransitionToJump();
         else if (!_input.HoldingRun())
-            _player.TransitionToState(_player.walking);
+            _stateMachine.TransitionToState(_stateMachine.walking);
     }
 
     private bool LedgeGrabDetection()
@@ -80,7 +80,7 @@ public class RunningPlayerState : PlayerState
                     if (enemy.TryGetComponent(out EnemyBehaviour eBehaviour))
                     {
                         eBehaviour.TakeDamage(1, Vector2.zero);
-                        _player.TransitionToState(_player.jump);
+                        _stateMachine.TransitionToState(_stateMachine.jump);
                     }
             }
         }
@@ -104,12 +104,12 @@ public class RunningPlayerState : PlayerState
         if (!_player.WithinCoyoteTime())
             return;
 
-        _player.TransitionToState(_player.jump);
+        _stateMachine.TransitionToState(_stateMachine.jump);
     }
 
     private void TransitionToAttack()
     {
-        _player.TransitionToState(_player.attack);
+        _stateMachine.TransitionToState(_stateMachine.attack);
     }
 
 }

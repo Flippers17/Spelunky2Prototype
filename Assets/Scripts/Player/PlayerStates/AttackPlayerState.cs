@@ -20,7 +20,7 @@ public class AttackPlayerState : PlayerState
         {
             _player.currentHeldItem.ThrowItem(new Vector2(_throwingVelocity.x * _player.facingDirection, _throwingVelocity.y));
             _player.currentHeldItem = null;
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
             return;
         }
 
@@ -36,7 +36,7 @@ public class AttackPlayerState : PlayerState
         if (timer < acionDelay)
             timer += Time.deltaTime;
         else
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
 
         if (_player.isGrounded)
             _player.velocity.y = -1;

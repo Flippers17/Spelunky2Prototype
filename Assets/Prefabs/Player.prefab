@@ -143,31 +143,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a985a1148949f0c4089ec80065d4d579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walking:
-    _speed: 4
-  running:
-    _speed: 8
-    _acceleration: 9
-  crouching:
-    _speed: 2
-    _defaultCollider: {fileID: 6148496320042662289}
-    _crouchCollider: {fileID: 6148496320042662280}
-  jump:
-    jumpHeight: 1
-    acionDelay: 0.1
-  climbDown:
-    _speed: 4
-  climbUp:
-    _speed: 4
-  takeDamage:
-    stunnedTime: 0.3
-  attack:
-    acionDelay: 0.4
-    _throwingVelocity: {x: 12, y: 5}
-  enterDoor:
-    waitTime: 1
-  climbLadder:
-    _climbSpeed: 4
+  stateMachine:
+    walking:
+      _speed: 4
+    running:
+      _speed: 8
+      _acceleration: 20
+    crouching:
+      _speed: 2
+      _defaultCollider: {fileID: 6148496320042662289}
+      _crouchCollider: {fileID: 6148496320042662280}
+    jump:
+      jumpHeight: 1
+      acionDelay: 0.1
+    climbDown:
+      _speed: 4
+    climbUp:
+      _speed: 4
+    takeDamage:
+      stunnedTime: 0.5
+    attack:
+      acionDelay: 0.4
+      _throwingVelocity: {x: 6, y: 2}
+    enterDoor:
+      waitTime: 1
+    climbLadder:
+      _climbSpeed: 4
   _rb: {fileID: 6148496320042662290}
   anim: {fileID: 6148496320042662282}
   _sprite: {fileID: 6148496320042662284}

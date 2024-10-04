@@ -108,7 +108,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Debug.Log(this.gameObject.name + " has died");
         _scoreEvent.IncreaseScore(_scoreGain);
         Destroy(gameObject);
     }

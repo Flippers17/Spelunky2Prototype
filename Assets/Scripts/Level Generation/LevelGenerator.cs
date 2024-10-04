@@ -120,7 +120,7 @@ public class LevelGenerator : MonoBehaviour
         PlayerStartPos = FindPlayerStartPos(startRoom, roomSize);
         GenerateTreassure(roomSize);
 
-        Debug.Log(PlayerStartPos);
+        //Debug.Log(PlayerStartPos);
         OnLevelGenerated?.Invoke();
     }
 

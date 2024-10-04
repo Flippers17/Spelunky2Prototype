@@ -25,7 +25,7 @@ public class ClimbUpLedgePlayerState : PlayerState
     private void CheckTransitions()
     {
         if (OnLedge())
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
     }
 
 

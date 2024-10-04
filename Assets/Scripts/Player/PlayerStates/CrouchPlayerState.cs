@@ -48,7 +48,7 @@ public class CrouchPlayerState : PlayerState
         {
             if (LedgeGrabDetection())
             {
-                _player.TransitionToState(_player.climbDown);
+                _stateMachine.TransitionToState(_stateMachine.climbDown);
                 return;
             }
         }
@@ -58,7 +58,7 @@ public class CrouchPlayerState : PlayerState
         
         if(!_input.HoldingCrouch() || !_player.isGrounded)
         {
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
             return;
         }
         else if (_input.RememberJumpInput())
@@ -108,7 +108,7 @@ public class CrouchPlayerState : PlayerState
         if (!_player.WithinCoyoteTime())
             return;
 
-        _player.TransitionToState(_player.jump);
+        _stateMachine.TransitionToState(_stateMachine.jump);
     }
 
 

@@ -26,7 +26,7 @@ public class ClimbLadderPlayerState : PlayerState
     {
         if(_input.GetHorizontalMoveInput() != 0)
         {
-            _player.TransitionToState(_player.walking);
+            _stateMachine.TransitionToState(_stateMachine.walking);
             return;
         }
 
@@ -38,7 +38,7 @@ public class ClimbLadderPlayerState : PlayerState
 
         if (_onLadder == false)
         {
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
             return;
         }
         
@@ -52,7 +52,7 @@ public class ClimbLadderPlayerState : PlayerState
             _player.velocity.y = -_climbSpeed;
             _anim.speed = 1;
             if (_player.isGrounded)
-                _player.TransitionToState(_player.idle);
+                _stateMachine.TransitionToState(_stateMachine.idle);
         }
         else
         {
@@ -87,11 +87,11 @@ public class ClimbLadderPlayerState : PlayerState
     private void TransitionToJump()
     {
         _player.isGrounded = true;
-        _player.TransitionToState(_player.jump);
+        _stateMachine.TransitionToState(_stateMachine.jump);
     }
 
     private void TransitionToAttack()
     {
-        _player.TransitionToState(_player.attack);
+        _stateMachine.TransitionToState(_stateMachine.attack);
     }
 }

@@ -11,9 +11,9 @@ public class EnterDoorPlayerState : PlayerState
     [SerializeField] private float waitTime = 1f;
     private float timer = 0;
     
-    public override void Awake(PlayerBehaviour player)
+    public override void Awake(PlayerBehaviour player, PlayerStateMachine stateMachine)
     {
-        base.Awake(player);
+        base.Awake(player, stateMachine);
         EnterDoorEvent = player.EnterDoorEvent;
     }
 
@@ -30,7 +30,7 @@ public class EnterDoorPlayerState : PlayerState
         if (timer < waitTime)
             timer += Time.deltaTime;
         else
-            _player.TransitionToState(_player.idle);
+            _stateMachine.TransitionToState(_stateMachine.idle);
     }
 
     public override void FixedUpdateState()

@@ -26,7 +26,7 @@ public class ClimbDownLedgePlayerState : PlayerState
     private void CheckTransitions()
     {
         if (LedgeGrabDetection())
-            _player.TransitionToState(_player.ledgeGrab);
+            _stateMachine.TransitionToState(_stateMachine.ledgeGrab);
     }
 
 
